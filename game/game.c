@@ -163,7 +163,7 @@ void moveRight(MovLayer *ml, Region *fence)
     vec2Add(&newPos, &ml->layer->posNext, &ml->velocity);
     abShapeGetBounds(ml->layer->abShape, &newPos, &shapeBoundary);
 
-    for (axis = 1; axis < 2; axis++) {
+    for (axis = 0; axis < 2; axis++) {
 
     	if (shapeBoundary.topLeft.axes[axis] < fence->topLeft.axes[axis])
     		newPos.axes[axis] += 1;
