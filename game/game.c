@@ -69,7 +69,7 @@ typedef struct MovLayer_s {
 
 /* initial value of {0,0} will be overwritten */
 MovLayer ml1 = { &layer1, {2,0}, 0 }; //paddle
-MovLayer ml3 = { &layer3, {2,4}, 0 }; //ball
+MovLayer ml3 = { &layer3, {3,4}, 0 }; //ball
 
 void movLayerDraw(MovLayer *movLayers, Layer *layers)
 {
@@ -236,7 +236,7 @@ void main()
     drawChar5x7(45, 0, score, COLOR_WHITE, COLOR_BLACK); //Scoreboard
     drawString5x7(70, 0, "LIVES:", COLOR_WHITE, COLOR_BLACK);
     drawChar5x7(110, 0, lives, COLOR_WHITE, COLOR_BLACK);
-    drawString5x7(50, 150, "PONG", COLOR_BLACK, COLOR_BLUE);
+    drawString5x7(50, 150, "PONG", COLOR_WHITE, COLOR_BLACK);
   }
 }
 
