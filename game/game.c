@@ -22,7 +22,7 @@ int abSlicedRectCheck(const AbRect *rect, const Vec2 *centerPos, const Vec2 *pix
 }
 
 //AbRect letterP = {abRectGetBounds, abSlicedRectCheck, 10,15};;
-Region fence = {{10,20}, {SHORT_EDGE_PIXELS-10, LONG_EDGE_PIXELS-5}};
+Region fence = {{10,20}, {SHORT_EDGE_PIXELS-10, LONG_EDGE_PIXELS-10}};
 AbRect rect = {abRectGetBounds, abRectCheck, {10,2}};
 
 u_char player1Score = '0';
