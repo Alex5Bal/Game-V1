@@ -24,7 +24,7 @@ int abSlicedRectCheck(const AbRect *rect, const Vec2 *centerPos, const Vec2 *pix
 Region fence = {{10,20}, {SHORT_EDGE_PIXELS-10, LONG_EDGE_PIXELS-10}};
 AbRect rect = {abRectGetBounds, abRectCheck, {12,2}};
 
-u_char player1Score = '0';
+u_char score = '0';
 u_char lives = '3';
 static int state = 0;
 
@@ -126,14 +126,17 @@ void moveBall(MovLayer *ml3, Region *fence1, MovLayer *ml1)
 
     	if((shapeBoundary.topLeft.axes[axis] < fence1->topLeft.axes[axis]) ||
     		(shapeBoundary.botRight.axes[axis] > fence1->botRight.axes[axis])){
+
     		velocity = ml3->velocity.axes[axis] = -ml3->velocity.axes[axis];
     		newPos.axes[axis] += (2*velocity);
     	}
     	else if((abShapeCheck(ml1->layer->abShape, &ml1->layer->posNext, &ml3->layer->posNext))){
     		velocity = ml3->velocity.axes[axis] = -ml3->velocity.axes[axis];
     		newPos.axes[axis] += (2*velocity);
+    		score += 100 - 255;
+
     	}
-    	else if((shapeBoundary.botRight.axes[0] > fence1->botRight.axes[1])){
+    	else if((shapeBoundary.botRight.axes[0] > fence1->botRight.axes[1]) && (lives != 0)){
     		newPos.axes[0] = screenWidth/2;
     		newPos.axes[1] = screenHeight/8;
     		lives -= 1;
@@ -229,7 +232,7 @@ void main()
     movLayerDraw(&ml3, &layer1);
     movLayerDraw(&ml1, &layer1);
     drawString5x7(5, 0, "SCORE:", COLOR_WHITE, COLOR_BLACK);
-    drawChar5x7(45, 0, player1Score, COLOR_WHITE, COLOR_BLACK); //Scoreboard
+    drawChar5x7(45, 0, score, COLOR_WHITE, COLOR_BLACK); //Scoreboard
     drawString5x7(70, 0, "LIVES:", COLOR_WHITE, COLOR_BLACK);
     drawChar5x7(110, 0, lives, COLOR_WHITE, COLOR_BLACK);
     //drawChar5x7(115, 5, player2Score, COLOR_BLACK, COLOR_BLUE); //Scoreboard
