@@ -59,7 +59,7 @@ Layer layer3 = {		/**< Layer with an yellow circle */
 
 Layer layer1 = {		/* playing field as a layer */
   (AbShape *) &rect,
-  {screenWidth/2-50, screenHeight/2+5},     //current pos
+  {screenWidth/2, screenHeight/16},     //current pos
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_WHITE,
   &layer3
