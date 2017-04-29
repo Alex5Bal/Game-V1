@@ -68,7 +68,7 @@ typedef struct MovLayer_s {
 } MovLayer;
 
 /* initial value of {0,0} will be overwritten */
-MovLayer ml1 = { &layer1, {0,3}, 0 }; //paddle
+MovLayer ml1 = { &layer1, {3,0}, 0 }; //paddle
 MovLayer ml3 = { &layer3, {2,4}, 0 }; //ball
 
 void movLayerDraw(MovLayer *movLayers, Layer *layers)
