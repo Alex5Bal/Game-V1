@@ -169,7 +169,7 @@ void moveRight(MovLayer *ml, Region *fence)
     		newPos.axes[axis] += 2;
     	else if(shapeBoundary.botRight.axes[axis] > fence->botRight.axes[axis])
     	    newPos.axes[axis] += -2;
-      }	// this if statement handles when a collision happens in the fence
+      	// this if statement handles when a collision happens in the fence
 
     } /**< for axis */
 
