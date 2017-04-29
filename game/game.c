@@ -249,6 +249,8 @@ void wdt_c_handler()
       break;
     case 1:
       layerDraw(&layer1);
+      break;
+    }
       /*if(player1Score > player2Score)
 	drawString5x7(28, 50, "PLAYER 1 WON!", COLOR_BLACK, COLOR_BLUE);
       else if(player1Score < player2Score)
@@ -270,5 +272,6 @@ void wdt_c_handler()
     }
     redrawScreen = 1;
     count = 0;
-  P1OUT &= ~GREEN_LED;		    /**< Green LED off when cpu off */
+  P1OUT &= ~GREEN_LED;	/**< Green LED off when cpu off */
+  }
 }/****END****/
