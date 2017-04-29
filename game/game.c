@@ -30,7 +30,7 @@ static int state = 0;
 
 AbRectOutline fieldOutline = {	/* playing field */
   abRectOutlineGetBounds, abRectOutlineCheck,
-  {screenWidth/2-5, screenHeight/2-10}
+  {screenWidth/2-5, screenHeight/2-12}
 };
 
 Layer fieldLayer = {
