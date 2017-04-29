@@ -186,14 +186,19 @@ void moveLeft(MovLayer *ml, Region *fence)
   for (; ml; ml = ml->next) {
     vec2Sub(&newPos, &ml->layer->posNext, &ml->velocity);
     abShapeGetBounds(ml->layer->abShape, &newPos, &shapeBoundary);
-    for (axis = 1; axis < 2; axis ++) {
-      if ((shapeBoundary.topLeft.axes[axis] < fence->topLeft.axes[axis]) ||
-	  (shapeBoundary.botRight.axes[axis] > fence->botRight.axes[axis]) ) {
-	int velocity = ml->velocity.axes[axis];
-	newPos.axes[axis] += (2*velocity);
-      }	// this if statement handles when a collision happens in the fence
+
+    for (axis = 0; axis < 2; axis ++) {
+
+    	if (shapeBoundary.topLeft.axes[axis] < fence->topLeft.axes[axis])
+    	    		newPos.axes[axis] += 1;
+    	else if(shapeBoundary.botRight.axes[axis] > fence->botRight.axes[axis])
+    	    	    newPos.axes[axis] += -1;
+
+    	// this if statement handles when a collision happens in the fence
     } /**< for axis */
+
     ml->layer->posNext = newPos;
+
   } /**< for ml */
 }
 
