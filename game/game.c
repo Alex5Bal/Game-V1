@@ -119,7 +119,7 @@ void moveBall(MovLayer *ml3, Region *fence1, MovLayer *ml1)
   Region shapeBoundary;
   int velocity;
   for (; ml3; ml3 = ml3->next) {
-    vec2Add(&newPos, &ml3->layer->posNext, &ml->velocity);
+    vec2Add(&newPos, &ml3->layer->posNext, &ml3->velocity);
     abShapeGetBounds(ml3->layer->abShape, &newPos, &shapeBoundary);
     for (axis = 0; axis < 2; axis ++){
       if((shapeBoundary.topLeft.axes[axis] < fence1->topLeft.axes[axis]) ||
