@@ -128,7 +128,7 @@ void moveBall(MovLayer *ml3, Region *fence1, MovLayer *ml1)
 	newPos.axes[axis] += (2*velocity);
       }
       else if((abShapeCheck(ml1->layer->abShape, &ml1->layer->posNext, &ml3->layer->posNext))){
-	velocity = ml->velocity.axes[axis] = -ml->velocity.axes[axis];
+	velocity = ml3->velocity.axes[axis] = -ml3->velocity.axes[axis];
 	newPos.axes[axis] += (2*velocity);
       }
       else if((shapeBoundary.botRight.axes[0] > fence1->botRight.axes[0])){
