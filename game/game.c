@@ -68,7 +68,7 @@ typedef struct MovLayer_s {
 } MovLayer;
 
 /* initial value of {0,0} will be overwritten */
-MovLayer ml1 = { &layer1, {3,0}, 0 }; //paddle
+MovLayer ml1 = { &layer1, {2,0}, 0 }; //paddle
 MovLayer ml3 = { &layer3, {2,4}, 0 }; //ball
 
 void movLayerDraw(MovLayer *movLayers, Layer *layers)
@@ -165,11 +165,10 @@ void moveRight(MovLayer *ml, Region *fence)
 
     for (axis = 1; axis < 2; axis++) {
 
-    	if ((shapeBoundary.topLeft.axes[axis] < fence->topLeft.axes[axis]) ||
-    	  (shapeBoundary.botRight.axes[axis] > fence->botRight.axes[axis]) ) {
-
-    	  int velocity = -ml->velocity.axes[axis];
-    	  newPos.axes[axis] += (2*velocity);
+    	if (shapeBoundary.topLeft.axes[axis] < fence->topLeft.axes[axis])
+    		newPos.axes[axis] += 2;
+    	else if(shapeBoundary.botRight.axes[axis] > fence->botRight.axes[axis])
+    	    newPos.axes[axis] += -2;
       }	// this if statement handles when a collision happens in the fence
 
     } /**< for axis */
