@@ -166,9 +166,9 @@ void moveRight(MovLayer *ml, Region *fence)
     for (axis = 1; axis < 2; axis++) {
 
     	if (shapeBoundary.topLeft.axes[axis] < fence->topLeft.axes[axis])
-    		newPos.axes[axis] += 2;
+    		newPos.axes[axis] += 1;
     	else if(shapeBoundary.botRight.axes[axis] > fence->botRight.axes[axis])
-    	    newPos.axes[axis] += -2;
+    	    newPos.axes[axis] += -1;
       	// this if statement handles when a collision happens in the fence
 
     } /**< for axis */
@@ -215,7 +215,7 @@ void main()
   p2sw_init(15); //initialize switches
   layerInit(&layer1); //Passes the first element from a MoveLayer LL to initialize shapes
   layerDraw(&layer1); //Passes the first element from a MoveLayer LL to draw shapes
-  layerGetBounds(&fieldLayer, &fieldFence);
+  layerGetBounds(&fieldLayer, &fence);
   enableWDTInterrupts();      // enable periodic interrupt
   or_sr(0x8);	              // GIE (enable interrupts)
 
@@ -262,16 +262,16 @@ void wdt_c_handler()
     }
     starWarsTheme();*/
     if(switches & (1<<3)){
-      moveRight(&ml1, &fieldFence);
+      moveRight(&ml1, &fence);
     }
     if(switches & (1<<2)){
-      moveLeft(&ml1, &fieldFence);
+      moveLeft(&ml1, &fence);
     }
     if(switches & (1<<1)){
-      moveRight(&ml1, &fieldFence);
+      moveRight(&ml1, &fence);
     }
     if(switches & (1<<0)){
-      moveLeft(&ml1, &fieldFence);
+      moveLeft(&ml1, &fence);
     }
     redrawScreen = 1;
     count = 0;
