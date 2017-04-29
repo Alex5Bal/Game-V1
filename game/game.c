@@ -21,7 +21,6 @@ int abSlicedRectCheck(const AbRect *rect, const Vec2 *centerPos, const Vec2 *pix
     return abRectCheck(rect, centerPos, pixel);
 }
 
-//AbRect letterP = {abRectGetBounds, abSlicedRectCheck, 10,15};;
 Region fence = {{10,20}, {SHORT_EDGE_PIXELS-10, LONG_EDGE_PIXELS-10}};
 AbRect rect = {abRectGetBounds, abRectCheck, {10,2}};
 
@@ -30,16 +29,8 @@ static int state = 0;
 
 AbRectOutline fieldOutline = {	/* playing field */
   abRectOutlineGetBounds, abRectOutlineCheck,
-  {screenWidth/2-5, screenHeight/2-15}
+  {screenWidth/2-5, screenHeight/2-10}
 };
-
-/*Layer letterPLayer = {
-  (AbShape *)&letterP,
-  {screenWidth/2-4, screenHeight/2+7}, /* position */
-  //{0,0}, {0,0},				    /* last & next pos */
-  /*COLOR_BLACK,
-  0,
-};*/
 
 Layer fieldLayer = {
   (AbShape *)&fieldOutline,
