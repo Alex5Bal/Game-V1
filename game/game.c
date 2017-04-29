@@ -98,7 +98,7 @@ void main()
     //movLayerDraw(&ml3, &layer2);
     //movLayerDraw(&ml2, &layer2);
     //movLayerDraw(&ml1, &layer2);
-    drawChar5x7(5, 5, player1Score, COLOR_BLACK, COLOR_BLUE); //Scoreboard
+    drawChar5x7(0, 5, player1Score, COLOR_WHITE, COLOR_BLUE); //Scoreboard
     //drawChar5x7(115, 5, player2Score, COLOR_BLACK, COLOR_BLUE); //Scoreboard
     //drawString5x7(5, 150, "X X X X PONG X X X X", COLOR_BLACK, COLOR_BLUE);
     //drawString5x7(38, 5, "<-SCORE->", COLOR_BLACK, COLOR_BLUE);
