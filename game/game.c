@@ -23,7 +23,7 @@ int abSlicedRectCheck(const AbRect *rect, const Vec2 *centerPos, const Vec2 *pix
 
 //AbRect letterP = {abRectGetBounds, abSlicedRectCheck, 10,15};;
 Region fence = {{10,20}, {SHORT_EDGE_PIXELS-10, LONG_EDGE_PIXELS-10}};
-AbRect rect = {abRectGetBounds, abRectCheck, {2,10}};
+AbRect rect = {abRectGetBounds, abRectCheck, {10,2}};
 
 u_char player1Score = '0';
 static int state = 0;
@@ -59,8 +59,8 @@ Layer layer3 = {		/**< Layer with an yellow circle */
 
 Layer layer1 = {		/* playing field as a layer */
   (AbShape *)&rect,
-  {screenWidth/2, screenHeight},     //current pos
-  {0,1}, {0,1},				    /* last & next pos */
+  {screenWidth/2, screenHeight/1.5},     //current pos
+  {0,0}, {0,0},				    /* last & next pos */
   COLOR_WHITE,
   &layer3
 };
