@@ -25,6 +25,7 @@ Region fence = {{10,20}, {SHORT_EDGE_PIXELS-10, LONG_EDGE_PIXELS-10}};
 AbRect rect = {abRectGetBounds, abRectCheck, {10,2}};
 
 u_char player1Score = '0';
+u_char lives = '0';
 static int state = 0;
 
 AbRectOutline fieldOutline = {	/* playing field */
@@ -98,7 +99,10 @@ void main()
     //movLayerDraw(&ml3, &layer2);
     //movLayerDraw(&ml2, &layer2);
     //movLayerDraw(&ml1, &layer2);
-    drawChar5x7(5, 0, player1Score, COLOR_WHITE, COLOR_BLACK); //Scoreboard
+    drawString5x7(5, 0, "SCORE: ", COLOR_WHITE, COLOR_BLACK);
+    drawChar5x7(20, 0, player1Score, COLOR_WHITE, COLOR_BLACK); //Scoreboard
+    drawString5x7(25, 0, "LIVES: ", COLOR_WHITE, COLOR_BLACK);
+    drawChar5x7(35, 0, lives, COLOR_WHITE, COLOR_BLACK);
     //drawChar5x7(115, 5, player2Score, COLOR_BLACK, COLOR_BLUE); //Scoreboard
     //drawString5x7(5, 150, "X X X X PONG X X X X", COLOR_BLACK, COLOR_BLUE);
     //drawString5x7(38, 5, "<-SCORE->", COLOR_BLACK, COLOR_BLUE);
