@@ -112,7 +112,7 @@ void movLayerDraw(MovLayer *movLayers, Layer *layers)
  *  \param ml The moving shape to be advanced
  *  \param fence The region which will serve as a boundary for ml
  */
-void moveBall(MovLayer *ml, Region *fence1, MovLayer *ml2, MovLayer *ml3)
+/*void moveBall(MovLayer *ml, Region *fence1, MovLayer *ml2, MovLayer *ml3)
 {
   Vec2 newPos;
   u_char axis;
@@ -149,9 +149,9 @@ void moveBall(MovLayer *ml, Region *fence1, MovLayer *ml2, MovLayer *ml3)
 	state = 1;
       }
     } /**< for axis */
-    ml->layer->posNext = newPos;
-  } /**< for ml */
-}
+    //ml->layer->posNext = newPos;
+  //} /**< for ml */
+//}
 
 void moveRight(MovLayer *ml, Region *fence)
 {
@@ -276,6 +276,5 @@ void wdt_c_handler()
     }
     redrawScreen = 1;
     count = 0;
-  }
   P1OUT &= ~GREEN_LED;		    /**< Green LED off when cpu off */
 }/****END****/
