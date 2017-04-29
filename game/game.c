@@ -130,10 +130,10 @@ void moveBall(MovLayer *ml3, Region *fence1, MovLayer *ml1)
     		velocity = ml3->velocity.axes[axis] = -ml3->velocity.axes[axis];
     		newPos.axes[axis] += (2*velocity);
     	}
-    	else if((abShapeCheck(ml1->layer->abShape, &ml1->layer->posNext, &ml3->layer->posNext))){
+    	else if((abShapeCheck(ml1->layer->abShape, &ml1->layer->posNext, &ml3->layer->posNext)) && (score <= 9)){
     		velocity = ml3->velocity.axes[axis] = -ml3->velocity.axes[axis];
     		newPos.axes[axis] += (2*velocity);
-    		score += 100 - 255;
+    		score += 1;
 
     	}
     	else if((shapeBoundary.botRight.axes[0] > fence1->botRight.axes[1]) && (lives != 0)){
