@@ -121,24 +121,26 @@ void moveBall(MovLayer *ml3, Region *fence1, MovLayer *ml1)
   for (; ml3; ml3 = ml3->next) {
     vec2Add(&newPos, &ml3->layer->posNext, &ml3->velocity);
     abShapeGetBounds(ml3->layer->abShape, &newPos, &shapeBoundary);
+
     for (axis = 0; axis < 2; axis ++){
-      if((shapeBoundary.topLeft.axes[axis] < fence1->topLeft.axes[axis]) ||
-	  (shapeBoundary.botRight.axes[axis] > fence1->botRight.axes[axis])){
-	velocity = ml3->velocity.axes[axis] = -ml3->velocity.axes[axis];
-	newPos.axes[axis] += (2*velocity);
-      }
-      else if((abShapeCheck(ml1->layer->abShape, &ml1->layer->posNext, &ml3->layer->posNext))){
-	velocity = ml3->velocity.axes[axis] = -ml3->velocity.axes[axis];
-	newPos.axes[axis] += (2*velocity);
-      }
-      else if((shapeBoundary.botRight.axes[0] > fence1->botRight.axes[0])){
-	newPos.axes[0] = screenWidth/2;
-	newPos.axes[1] = screenHeight/8;
-	lives -= 1;
-      }
-      //if(player1Score == '5' || player2Score == '5'){
-	//state = 1;
-      //}
+
+    	if((shapeBoundary.topLeft.axes[axis] < fence1->topLeft.axes[axis]) ||
+    		(shapeBoundary.botRight.axes[axis] > fence1->botRight.axes[axis])){
+    		velocity = ml3->velocity.axes[axis] = -ml3->velocity.axes[axis];
+    		newPos.axes[axis] += (2*velocity);
+    	}
+    	else if((abShapeCheck(ml1->layer->abShape, &ml1->layer->posNext, &ml3->layer->posNext))){
+    		velocity = ml3->velocity.axes[axis] = -ml3->velocity.axes[axis];
+    		newPos.axes[axis] += (2*velocity);
+    	}
+    	else if((shapeBoundary.botRight.axes[0] > fence1->botRight.axes[1])){
+    		newPos.axes[0] = screenWidth/2;
+    		newPos.axes[1] = screenHeight/8;
+    		lives -= 1;
+    	}
+    	//if(player1Score == '5' || player2Score == '5'){
+    	//state = 1;
+    	//}
     } /**< for axis */
     ml3->layer->posNext = newPos;
   } /**< for ml */
