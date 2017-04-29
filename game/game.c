@@ -130,10 +130,11 @@ void moveBall(MovLayer *ml3, Region *fence1, MovLayer *ml1)
     		velocity = ml3->velocity.axes[axis] = -ml3->velocity.axes[axis];
     		newPos.axes[axis] += (2*velocity);
     	}
-    	else if((abShapeCheck(ml1->layer->abShape, &ml1->layer->posNext, &ml3->layer->posNext)) && (score <= '8')){
+    	else if((abShapeCheck(ml1->layer->abShape, &ml1->layer->posNext, &ml3->layer->posNext))){
     		velocity = ml3->velocity.axes[axis] = -ml3->velocity.axes[axis];
     		newPos.axes[axis] += (2*velocity);
-    		score += 1;
+    		if (score <= '8')
+    			score += 1;
 
     	}
     	else if((shapeBoundary.botRight.axes[1] > fence1->botRight.axes[1]) && (lives != '0')){
@@ -235,9 +236,7 @@ void main()
     drawChar5x7(45, 0, score, COLOR_WHITE, COLOR_BLACK); //Scoreboard
     drawString5x7(70, 0, "LIVES:", COLOR_WHITE, COLOR_BLACK);
     drawChar5x7(110, 0, lives, COLOR_WHITE, COLOR_BLACK);
-    //drawChar5x7(115, 5, player2Score, COLOR_BLACK, COLOR_BLUE); //Scoreboard
-    //drawString5x7(5, 150, "X X X X PONG X X X X", COLOR_BLACK, COLOR_BLUE);
-    //drawString5x7(38, 5, "<-SCORE->", COLOR_BLACK, COLOR_BLUE);
+    drawString5x7(50, 150, "PONG", COLOR_BLACK, COLOR_BLUE);
   }
 }
 
