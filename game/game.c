@@ -100,9 +100,9 @@ void main()
     //movLayerDraw(&ml2, &layer2);
     //movLayerDraw(&ml1, &layer2);
     drawString5x7(5, 0, "SCORE: ", COLOR_WHITE, COLOR_BLACK);
-    drawChar5x7(35, 0, player1Score, COLOR_WHITE, COLOR_BLACK); //Scoreboard
-    drawString5x7(45, 0, "LIVES: ", COLOR_WHITE, COLOR_BLACK);
-    drawChar5x7(75, 0, lives, COLOR_WHITE, COLOR_BLACK);
+    drawChar5x7(45, 0, player1Score, COLOR_WHITE, COLOR_BLACK); //Scoreboard
+    drawString5x7(60, 0, "LIVES: ", COLOR_WHITE, COLOR_BLACK);
+    drawChar5x7(95, 0, lives, COLOR_WHITE, COLOR_BLACK);
     //drawChar5x7(115, 5, player2Score, COLOR_BLACK, COLOR_BLUE); //Scoreboard
     //drawString5x7(5, 150, "X X X X PONG X X X X", COLOR_BLACK, COLOR_BLUE);
     //drawString5x7(38, 5, "<-SCORE->", COLOR_BLACK, COLOR_BLUE);
