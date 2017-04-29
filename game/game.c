@@ -112,46 +112,37 @@ void movLayerDraw(MovLayer *movLayers, Layer *layers)
  *  \param ml The moving shape to be advanced
  *  \param fence The region which will serve as a boundary for ml
  */
-/*void moveBall(MovLayer *ml, Region *fence1, MovLayer *ml2, MovLayer *ml3)
+void moveBall(MovLayer *ml3, Region *fence1, MovLayer *ml1)
 {
   Vec2 newPos;
   u_char axis;
   Region shapeBoundary;
   int velocity;
-  for (; ml; ml = ml->next) {
-    vec2Add(&newPos, &ml->layer->posNext, &ml->velocity);
-    abShapeGetBounds(ml->layer->abShape, &newPos, &shapeBoundary);
+  for (; ml3; ml3 = ml3->next) {
+    vec2Add(&newPos, &ml3->layer->posNext, &ml->velocity);
+    abShapeGetBounds(ml3->layer->abShape, &newPos, &shapeBoundary);
     for (axis = 0; axis < 2; axis ++){
       if((shapeBoundary.topLeft.axes[axis] < fence1->topLeft.axes[axis]) ||
 	  (shapeBoundary.botRight.axes[axis] > fence1->botRight.axes[axis])){
-	velocity = ml->velocity.axes[axis] = -ml->velocity.axes[axis];
+	velocity = ml3->velocity.axes[axis] = -ml3->velocity.axes[axis];
 	newPos.axes[axis] += (2*velocity);
       }
-      else if((abShapeCheck(ml2->layer->abShape, &ml2->layer->posNext, &ml->layer->posNext))){
+      else if((abShapeCheck(ml1->layer->abShape, &ml1->layer->posNext, &ml3->layer->posNext))){
 	velocity = ml->velocity.axes[axis] = -ml->velocity.axes[axis];
 	newPos.axes[axis] += (2*velocity);
-      }
-      else if((abShapeCheck(ml3->layer->abShape, &ml3->layer->posNext, &ml->layer->posNext))){
-	velocity = ml->velocity.axes[axis] = -ml->velocity.axes[axis];
-	newPos.axes[axis] += (2*velocity);
-      }
-      else if((shapeBoundary.topLeft.axes[0] < fence1->topLeft.axes[0])){
-	newPos.axes[0] = screenWidth/2;
-	newPos.axes[1] = screenHeight/2;
-	player2Score = player2Score - 255;
       }
       else if((shapeBoundary.botRight.axes[0] > fence1->botRight.axes[0])){
 	newPos.axes[0] = screenWidth/2;
-	newPos.axes[1] = screenHeight/2;
-	player1Score = player1Score - 255;
+	newPos.axes[1] = screenHeight/8;
+	lives -= 1;
       }
-      if(player1Score == '5' || player2Score == '5'){
-	state = 1;
-      }
+      //if(player1Score == '5' || player2Score == '5'){
+	//state = 1;
+      //}
     } /**< for axis */
-    //ml->layer->posNext = newPos;
-  //} /**< for ml */
-//}
+    ml3->layer->posNext = newPos;
+  } /**< for ml */
+}
 
 void moveRight(MovLayer *ml, Region *fence)
 {
@@ -234,7 +225,6 @@ void main()
     P1OUT |= GREEN_LED; // Green led on when CPU on
     redrawScreen = 0;
     movLayerDraw(&ml3, &layer1);
-    //movLayerDraw(&ml2, &layer2);
     movLayerDraw(&ml1, &layer1);
     drawString5x7(5, 0, "SCORE:", COLOR_WHITE, COLOR_BLACK);
     drawChar5x7(45, 0, player1Score, COLOR_WHITE, COLOR_BLACK); //Scoreboard
