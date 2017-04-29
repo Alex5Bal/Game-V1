@@ -1,24 +1,20 @@
-all:
-	(cd timerLib; make install)
-	(cd lcdLib; make install)
-	(cd shapeLib; make install)
-	(cd circleLib; make install)
-	(cd p2swLib; make install)
-	(cd p2sw-demo; make)
-	(cd shape-motion-demo; make)
-	(cd game; make)
+# makfile configuration
+CPU             	= msp430g2553
+CFLAGS          	= -mmcu=${CPU} -Os -I../h
+LDFLAGS		= -L../lib -L/opt/ti/msp430_gcc/include/ 
 
-doc:
-	rm -rf doxygen_docs
-	doxygen Doxyfile
+#switch the compiler (for the internal make rules)
+CC              = msp430-elf-gcc
+AS              = msp430-elf-gcc -mmcu=${CPU} -c
+
+all: game.elf
+
+#additional rules for files
+game.elf: ${COMMON_OBJECTS} buzzer.o game.o statemachine.o wdt_handler.o
+	${CC} ${CFLAGS} ${LDFLAGS} -o $@ $^ -lTimer -lLcd -lShape -lCircle -lp2sw
+
+load: pong.elf
+	mspdebug rf2500 "prog $^"
+
 clean:
-	(cd timerLib; make clean)
-	(cd lcdLib; make clean)
-	(cd shapeLib; make clean)
-	(cd p2swLib; make clean)
-	(cd p2sw-demo; make clean)
-	(cd shape-motion-demo; make clean)
-	(cd circleLib; make clean)
-	(cd game; make clean)
-	rm -rf lib h
-	rm -rf doxygen_docs/*
+	rm -f *.o *.elf
