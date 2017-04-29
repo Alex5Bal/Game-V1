@@ -51,7 +51,7 @@ Layer fieldLayer = {
 
 Layer layer3 = {		/**< Layer with an yellow circle */
   (AbShape *)&circle4,
-  {(screenWidth/4), (screenHeight/4)}, /**<center */
+  {(screenWidth/2), (screenHeight/8)}, /**<center */
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_WHITE,
   &fieldLayer,
