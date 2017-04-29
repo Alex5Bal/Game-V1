@@ -229,9 +229,9 @@ void main()
     }
     P1OUT |= GREEN_LED; // Green led on when CPU on
     redrawScreen = 0;
-    movLayerDraw(&ml3, &layer2);
+    movLayerDraw(&ml3, &layer1);
     //movLayerDraw(&ml2, &layer2);
-    movLayerDraw(&ml1, &layer2);
+    movLayerDraw(&ml1, &layer1);
     drawString5x7(5, 0, "SCORE:", COLOR_WHITE, COLOR_BLACK);
     drawChar5x7(45, 0, player1Score, COLOR_WHITE, COLOR_BLACK); //Scoreboard
     drawString5x7(70, 0, "LIVES:", COLOR_WHITE, COLOR_BLACK);
