@@ -22,10 +22,10 @@ int abSlicedRectCheck(const AbRect *rect, const Vec2 *centerPos, const Vec2 *pix
 }
 
 Region fence = {{10,20}, {SHORT_EDGE_PIXELS-10, LONG_EDGE_PIXELS-10}};
-AbRect rect = {abRectGetBounds, abRectCheck, {10,2}};
+AbRect rect = {abRectGetBounds, abRectCheck, {12,2}};
 
 u_char player1Score = '0';
-u_char lives = '0';
+u_char lives = '3';
 static int state = 0;
 
 AbRectOutline fieldOutline = {	/* playing field */
