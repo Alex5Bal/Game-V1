@@ -242,20 +242,20 @@ void wdt_c_handler()
   P1OUT |= GREEN_LED;		      /**< Green LED on when cpu on */
   count ++;
   u_int switches = p2sw_read();
-  /*if(count == 10){
+  if(count == 10){
     switch(state){
     case 0:
-      moveBall(&ml3, &fieldFence, &ml1, &ml2);
+      moveBall(&ml3, &fence, &ml1);
       break;
     case 1:
-      layerDraw(&layer2);
-      if(player1Score > player2Score)
+      layerDraw(&layer1);
+      /*if(player1Score > player2Score)
 	drawString5x7(28, 50, "PLAYER 1 WON!", COLOR_BLACK, COLOR_BLUE);
       else if(player1Score < player2Score)
 	drawString5x7(28, 50, "PLAYER 2 WON!", COLOR_BLACK, COLOR_BLUE);
       break;
-    }
-    starWarsTheme();*/
+    }*/
+    //starWarsTheme();
     if(switches & (1<<3)){
       moveRight(&ml1, &fence);
     }
