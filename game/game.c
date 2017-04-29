@@ -120,7 +120,7 @@ void wdt_c_handler()
   P1OUT |= GREEN_LED;		      /**< Green LED on when cpu on */
   count ++;
   u_int switches = p2sw_read();
-  if(count == 10){
+  /*if(count == 10){
     switch(state){
     case 0:
       moveBall(&ml3, &fieldFence, &ml1, &ml2);
@@ -148,6 +148,6 @@ void wdt_c_handler()
     }
     redrawScreen = 1;
     count = 0;
-  }
+  }*/
   P1OUT &= ~GREEN_LED;		    /**< Green LED off when cpu off */
 }/****END****/
