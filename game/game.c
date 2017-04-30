@@ -127,6 +127,7 @@ void moveBall(MovLayer *mlBall, Region *fence1, MovLayer *mlPaddle)
     	else if((abShapeCheck(mlPaddle->layer->abShape, &mlPaddle->layer->posNext, &mlBall->layer->posNext))) {
     		velocity = mlBall->velocity.axes[axis] = -mlBall->velocity.axes[axis];
     		newPos.axes[axis] += (4*velocity);
+    		paddleSound(1);
     		if (score <= '8')
     			score += 1;
 
@@ -248,11 +249,12 @@ void main()
   enableWDTInterrupts();      // enable periodic interrupt
   or_sr(0x8);	              // GIE (enable interrupts)
 
-  for(;;){
+  for(;;) {
     while (!redrawScreen) { // Pause CPU if screen doesn't need updating
       P1OUT &= ~GREEN_LED; // Green led off witHo CPU
       or_sr(0x10); //< CPU OFF
     }
+
     P1OUT |= GREEN_LED; // Green led on when CPU on
     redrawScreen = 0;
     movLayerDraw(&mlBall, &paddle);
@@ -305,38 +307,7 @@ void wdt_c_handler()
 }/****END****/
 
 
-/*
-char enable_sound = 1;              // as a default, sound is enabled
-char selected_song;
-char note;
-
-short getFrequency(){
-// returns the frequency of the selected song
-    switch(selected_song){
-        case 1:
-           get_GameOver_Frequency();
-           break;
-        case 2:
-           get_Lost_Frequency();
-           break;
-        case 3:
-           get_Christmas_Frequency();
-           break;
-        case 4:
-           get_destroyed_sound();
-           break;
-    }
-
-}
-void configure_sound(){
-    if(!enable_sound)
-         enable_sound = 1;
-    else
-         enable_sound = 0;
-    drawSoundStatus(enable_sound);
-
-}
-void make_bullet_sound(char sound_enable){
+void paddleSound(char sound_enable){
 // Makes the actual sound of a bullet being realeased, every time the user
 // realeases a bullet, the game will make an special sound
     if(sound_enable){
@@ -349,16 +320,3 @@ void make_bullet_sound(char sound_enable){
 
 }
 
-const static char frequency[] = { E4, G4, 0 };
-short get_destroyed_sound(){
-// Makes the sound of an alien being destroyed by a bullet
-    if(note == 2){
-        note = 0;
-        selected_song = 0;   // sound only played one time
-        return 0;
-    }
-    else
-        return (frequency[note] * 10);
-}
-
-*/
