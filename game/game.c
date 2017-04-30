@@ -272,14 +272,15 @@ void wdt_c_handler()
     }
 
     if(paddleSound) {
-    	static char count = 0;
-    		if(count == 0)
-    			makePaddleSound(1);
-    	    if (++count == 25) {
-    	        makePaddleSound(0);
-    	        count = 0;
-    	        paddleSound = 0;
-    	    }
+    	static char noiseCount = 0;
+
+    	if(noiseCount == 0)
+    		make_Paddle_Sound(1);
+    	if (++noiseCount == 25) {
+    	    make_Paddle_Sound(0);
+    	    noiseCount = 0;
+    	    paddleSound = 0;
+    	}
     }
 
     redrawScreen = 1;
@@ -289,7 +290,7 @@ void wdt_c_handler()
 }/****END****/
 
 
-void makePadddleSound(char enable){
+void make_Padddle_Sound(char enable){
 // Makes the actual sound of a bullet being realeased, every time the user
 // realeases a bullet, the game will make an special sound
     if(enable){

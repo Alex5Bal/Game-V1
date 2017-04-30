@@ -13,7 +13,7 @@ all: game.elf
 game.elf: ${COMMON_OBJECTS} buzzer.o game.o statemachine.o wdt_handler.o
 	${CC} ${CFLAGS} ${LDFLAGS} -o $@ $^ -lTimer -lLcd -lShape -lCircle -lp2sw
 
-load: pong.elf
+load: game.elf
 	mspdebug rf2500 "prog $^"
 
 clean:
