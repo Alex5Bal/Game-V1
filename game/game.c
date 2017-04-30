@@ -200,7 +200,7 @@ void moveLeft(MovLayer *ml, Region *fence)
 
 u_int bgColor = COLOR_BLACK;     /**< The background color */
 int redrawScreen = 1;           /**< Boolean for whether screen needs to be redrawn */
-Region fieldFence;		/**< fence around playing field  */
+//Region fieldFence;		/**< fence around playing field  */
 
 /** Initializes everything, enables interrupts and green LED,
  *  and handles the rendering for the screen
@@ -272,14 +272,15 @@ void wdt_c_handler()
     }
 
     if(paddleSound) {
-    	static char sound_count = 0;
-    		if(sound_count == 0)
-    			makePaddleSound(1);
-    	    if (++sound_count == 25) {
-    	        makePaddleSound(0);
-    	        sound_count = 0;
-    	        paddleSound = 0;
-    	    }
+    	static char counter = 0;
+
+    	if(counter == 0)
+    		makePaddleSound(1);
+    	if (++counter == 25) {
+    	    makePaddleSound(0);
+    	    counter = 0;
+    	    paddleSound = 0;
+    	}
     }
 
     redrawScreen = 1;
@@ -289,13 +290,14 @@ void wdt_c_handler()
 }/****END****/
 
 
-void makePaddleSound(char sound_enable){
+void makePaddleSound(char enable){
 // Makes the actual sound of a bullet being realeased, every time the user
 // realeases a bullet, the game will make an special sound
-    if(sound_enable){
+    if(enable){
         CCR0 = 1000;
         CCR1 = 500;
-    }else{
+    }
+    else{
         CCR0 = 0;
         CCR1 = 0;
     }
