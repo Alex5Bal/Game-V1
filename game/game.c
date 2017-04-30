@@ -12,8 +12,7 @@
 u_char score = '0';
 u_char lives = '3';
 static int state = 0;
-char bullet_sound;
-//static int position = 0;
+char paddleSound;
 
 Region fence = {{10,20}, {SHORT_EDGE_PIXELS-10, LONG_EDGE_PIXELS-10}};
 AbRect rect = {abRectGetBounds, abRectCheck, {12,2}};
@@ -128,7 +127,7 @@ void moveBall(MovLayer *mlBall, Region *fence1, MovLayer *mlPaddle)
     	else if((abShapeCheck(mlPaddle->layer->abShape, &mlPaddle->layer->posNext, &mlBall->layer->posNext))) {
     		velocity = mlBall->velocity.axes[axis] = -mlBall->velocity.axes[axis];
     		newPos.axes[axis] += (4*velocity);
-    		bullet_sound = 1;
+    		paddleSound = 1;
     		if (score <= '8')
     			score += 1;
 
@@ -236,8 +235,6 @@ void main()
     drawString5x7(80, 0, "LIVES:", COLOR_WHITE, COLOR_BLACK);
     drawChar5x7(120, 0, lives, COLOR_WHITE, COLOR_BLACK);
     drawString5x7(50, 150, "PONG", COLOR_WHITE, COLOR_BLACK);
-    //drawString5x7(0, 150, "S1-R", COLOR_WHITE, COLOR_BLACK);
-   //drawString5x7(100, 150, "S4-L", COLOR_WHITE, COLOR_BLACK);
   }
 }
 
@@ -274,14 +271,14 @@ void wdt_c_handler()
     	moveLeft(&mlPaddle, &fence);
     }
 
-    if(bullet_sound) {
-    	static char sound_count = 0;
-    		if(sound_count == 0)
-    			make_bullet_sound(1);
-    	    if (++sound_count == 50) {
-    	        make_bullet_sound(0);
-    	        sound_count = 0;
-    	        bullet_sound = 0;
+    if(paddleSound) {
+    	static char count = 0;
+    		if(count == 0)
+    			makePaddleSound(1);
+    	    if (++count == 25) {
+    	        makePaddleSound(0);
+    	        count = 0;
+    	        paddleSound = 0;
     	    }
     }
 
@@ -292,118 +289,15 @@ void wdt_c_handler()
 }/****END****/
 
 
-void make_bullet_sound(char sound_enable){
+void makePadddleSound(char enable){
 // Makes the actual sound of a bullet being realeased, every time the user
 // realeases a bullet, the game will make an special sound
-    if(sound_enable){
-        CCR0 = 2000;
-        CCR1 = 1000;
+    if(enable){
+        CCR0 = 1000;
+        CCR1 = 500;
     }else{
         CCR0 = 0;
         CCR1 = 0;
     }
 
 }
-
-
-/*void __interrupt_vec(PORT2_VECTOR) Port_2(){
-    if (P2IFG & SWITCHES) {	          // did a button cause this interrupt?
-        P2IFG &= ~SWITCHES;		      // clear pending switches interrupts
-        switch_interrupt_handler();
-    }
-
-}*/
-
-/*void __interrupt_vec(WDT_VECTOR) WDT(){	        // 250 interrupts/sec
-	if(enable_sound){
-		if(bullet_sound) {
-			static char sound_count = 0;
-	        	if(sound_count == 0)
-	        		make_bullet_sound(1);
-	        	if (++sound_count == 50) {
-	                make_bullet_sound(0);
-	                sound_count = 0;
-	                bullet_sound = 0;
-	        	}
-	    }
-	}
-
-
-
-	if(state == 0){
-        static char decisecond_count = 0;
-        if (++decisecond_count == 110) {
-            drawBlinkText("Press S1");
-            decisecond_count = 0;
-        }
-    }
-    if(state == 1){
-        if(bullet_was_fired){
-            static char second_count = 0;                     // state is 3 when a song is paused
-            if (++second_count == 10) {
-                    fire_bullet_handler();
-                    second_count = 0;
-            }
-        }
-
-       static char second_count = 0;                     // state is 3 when a song is paused
-       if (++second_count == 20) {
-           static char alien_turn = 2;
-           if(alien_turn == 2){
-                mov_aliens2();
-                alien_turn = 1;
-           }
-           else if(alien_turn == 1){
-                mov_aliens();
-                alien_turn = 2;
-           }
-           second_count = 0;
-       }
-       static short level_count = 0;                     // state is 3 when a song is paused
-       if(game_level > 1 && ++level_count == 800) {
-           level_count = 0;
-           if(ALIEN1_LIVES)
-               change_velDirection(&mvA1);
-           if(ALIEN2_LIVES)
-               change_velDirection(&mvA2);
-       }
-       if (game_level == 3 && level_count%400 == 1) {
-           change_alienColor();
-       }
-       static char score_count = 0;                     // state is 3 when a song is paused
-       if (score && ++score_count == 250) {
-           drawScore(--score);
-           score_count = 0;
-           if(!score)
-               gameover_state();
-       }
-
-    }
-    if(enable_sound){
-       if(bullet_sound){
-           static char sound_count = 0;
-           if(sound_count == 0)
-               make_bullet_sound(1);
-           if (++sound_count == 50) {
-                make_bullet_sound(0);
-                sound_count = 0;
-                bullet_sound = 0;
-           }
-      }
-      if(selected_song){
-        static char music_count = 0;
-        if (++music_count == 50) {
-            buzzer_advance_frequency();     // buzzer_advance_frequency generates the sound
-            music_count = 0;
-            note++;
-        }
-      }
-
-    }
-    else{
-        bullet_sound = 0;
-        selected_song = 0;
-    }
-
-}*/
-
