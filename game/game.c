@@ -158,11 +158,15 @@ void moveBall(MovLayer *mlBall, Region *fence1, MovLayer *mlPaddle)
 
     		  }*/
     	}
-    	//if(player1Score == '5' || player2Score == '5'){
-    	//state = 1;
-    	//}
+
+    	if(lives == '0') {
+    		state = 1;
+    	}
+
     } /**< for axis */
+
     mlBall->layer->posNext = newPos;
+
   } /**< for ml */
 }
 
