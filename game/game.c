@@ -31,7 +31,7 @@ Layer field = {
 };
 
 Layer ball = {		/**< Layer with an yellow circle */
-  (AbShape *)&circle4,
+  (AbShape *)&circle,
   {(screenWidth/2), (screenHeight/8)}, /**<center */
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_WHITE,
