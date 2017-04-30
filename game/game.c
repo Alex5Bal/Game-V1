@@ -293,8 +293,8 @@ void makePaddleSound(char enable){
 // Makes the actual sound of a bullet being realeased, every time the user
 // realeases a bullet, the game will make an special sound
     if(enable){
-        CCR0 = 100;
-        CCR1 = 50;
+        CCR0 = 500;
+        CCR1 = 400;
     }
     else{
         CCR0 = 0;
