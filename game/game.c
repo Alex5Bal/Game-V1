@@ -276,7 +276,7 @@ void wdt_c_handler()
 
     	if(counter == 0)
     		makePaddleSound(1);
-    	if (++counter == 25) {
+    	if (++counter == 20) {
     	    makePaddleSound(0);
     	    counter = 0;
     	    paddleSound = 0;
@@ -293,8 +293,8 @@ void makePaddleSound(char enable){
 // Makes the actual sound of a bullet being realeased, every time the user
 // realeases a bullet, the game will make an special sound
     if(enable){
-        CCR0 = 500;
-        CCR1 = 400;
+        CCR0 = 200;
+        CCR1 = 100;
     }
     else{
         CCR0 = 0;
