@@ -274,9 +274,9 @@ void wdt_c_handler()
     if(bullet_sound) {
     	static char sound_count = 0;
     		if(sound_count == 0)
-    			make_paddle_sound(1);
+    			makePaddleSound(1);
     	    if (++sound_count == 25) {
-    	        make_paddle_sound(0);
+    	        makePaddleSound(0);
     	        sound_count = 0;
     	        bullet_sound = 0;
     	    }
@@ -289,7 +289,7 @@ void wdt_c_handler()
 }/****END****/
 
 
-void make_paddle_sound(char sound_enable){
+void makePaddleSound(char sound_enable){
 // Makes the actual sound of a bullet being realeased, every time the user
 // realeases a bullet, the game will make an special sound
     if(sound_enable){
