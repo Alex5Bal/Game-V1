@@ -303,3 +303,16 @@ void makePaddleSound(char enable){
     }
 
 }
+
+void buzzerAdvanceFrequency() {
+
+	period += rate;
+
+	if ((rate > 0 && (period > MAX_PERIOD)) || (rate < 0 && (period < MIN_PERIOD))) {
+
+		rate = -rate;
+		period += (rate << 1);
+	}
+
+	buzzerSetPeriod(period);
+}
