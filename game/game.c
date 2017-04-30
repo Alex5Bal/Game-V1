@@ -133,7 +133,8 @@ void moveBall(MovLayer *ml3, Region *fence1, MovLayer *ml1)
     	else if((abShapeCheck(ml1->layer->abShape, &ml1->layer->posNext, &ml3->layer->posNext))){
     		velocity = ml3->velocity.axes[axis] = -ml3->velocity.axes[axis];
     		newPos.axes[axis] += (2*velocity);
-    		buzzer_set_period(950);
+    		CCR0 = 2000;
+    		CCR1 = 1000;
     		if (score <= '8')
     			score += 1;
 
@@ -280,3 +281,62 @@ void wdt_c_handler()
   P1OUT &= ~GREEN_LED;	/**< Green LED off when cpu off */
   }
 }/****END****/
+
+
+/*
+char enable_sound = 1;              // as a default, sound is enabled
+char selected_song;
+char note;
+
+short getFrequency(){
+// returns the frequency of the selected song
+    switch(selected_song){
+        case 1:
+           get_GameOver_Frequency();
+           break;
+        case 2:
+           get_Lost_Frequency();
+           break;
+        case 3:
+           get_Christmas_Frequency();
+           break;
+        case 4:
+           get_destroyed_sound();
+           break;
+    }
+
+}
+void configure_sound(){
+    if(!enable_sound)
+         enable_sound = 1;
+    else
+         enable_sound = 0;
+    drawSoundStatus(enable_sound);
+
+}
+void make_bullet_sound(char sound_enable){
+// Makes the actual sound of a bullet being realeased, every time the user
+// realeases a bullet, the game will make an special sound
+    if(sound_enable){
+        CCR0 = 2000;
+        CCR1 = 1000;
+    }else{
+        CCR0 = 0;
+        CCR1 = 0;
+    }
+
+}
+
+const static char frequency[] = { E4, G4, 0 };
+short get_destroyed_sound(){
+// Makes the sound of an alien being destroyed by a bullet
+    if(note == 2){
+        note = 0;
+        selected_song = 0;   // sound only played one time
+        return 0;
+    }
+    else
+        return (frequency[note] * 10);
+}
+
+*/
