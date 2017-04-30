@@ -13,7 +13,6 @@ u_char score = '0';
 u_char lives = '3';
 static int state = 0;
 char bullet_sound;
-//static int position = 0;
 
 Region fence = {{10,20}, {SHORT_EDGE_PIXELS-10, LONG_EDGE_PIXELS-10}};
 AbRect rect = {abRectGetBounds, abRectCheck, {12,2}};
@@ -275,9 +274,9 @@ void wdt_c_handler()
     if(bullet_sound) {
     	static char sound_count = 0;
     		if(sound_count == 0)
-    			make_bullet_sound(1);
+    			make_paddle_sound(1);
     	    if (++sound_count == 25) {
-    	        make_bullet_sound(0);
+    	        make_paddle_sound(0);
     	        sound_count = 0;
     	        bullet_sound = 0;
     	    }
@@ -290,7 +289,7 @@ void wdt_c_handler()
 }/****END****/
 
 
-void make_bullet_sound(char sound_enable){
+void make_paddle_sound(char sound_enable){
 // Makes the actual sound of a bullet being realeased, every time the user
 // realeases a bullet, the game will make an special sound
     if(sound_enable){
