@@ -9,17 +9,17 @@
 
 #define GREEN_LED BIT6
 
-int abSlicedRectCheck(const AbRect *rect, const Vec2 *centerPos, const Vec2 *pixel)
+/*int abSlicedRectCheck(const AbRect *rect, const Vec2 *centerPos, const Vec2 *pixel)
 {
   Vec2 relPos;
-  vec2Sub(&relPos, pixel, centerPos); /* vector from center to pixel */
+  vec2Sub(&relPos, pixel, centerPos);  vector from center to pixel
 
-  /* reject pixels in slice */
+   reject pixels in slice
   if (relPos.axes[0] >= 0 && relPos.axes[1]/2 < relPos.axes[1])
     return 0;
   else
     return abRectCheck(rect, centerPos, pixel);
-}
+}*/
 
 Region fence = {{10,20}, {SHORT_EDGE_PIXELS-10, LONG_EDGE_PIXELS-10}};
 AbRect rect = {abRectGetBounds, abRectCheck, {12,2}};
