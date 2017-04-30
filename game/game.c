@@ -12,6 +12,7 @@
 u_char score = '0';
 u_char lives = '3';
 static int state = 0;
+static int position = 0;
 
 Region fence = {{10,20}, {SHORT_EDGE_PIXELS-10, LONG_EDGE_PIXELS-10}};
 AbRect rect = {abRectGetBounds, abRectCheck, {12,2}};
@@ -127,9 +128,35 @@ void moveBall(MovLayer *mlBall, Region *fence1, MovLayer *mlPaddle)
 
     	}
     	else if((shapeBoundary.botRight.axes[1] > fence1->botRight.axes[1]) && (lives != '0')){
-    		newPos.axes[0] = screenWidth/2;
-    		newPos.axes[1] = screenHeight/8;
     		lives -= 1;
+
+    		switch(position){
+
+    			  case 0:
+    				  newPos.axes[0] = screenWidth/2;
+    				  newPos.axes[1] = screenHeight/8;
+    				  position = 1;
+    				  break;
+
+    			  case 1:
+    				  newPos.axes[0] = screenWidth/4;
+    				  newPos.axes[1] = screenHeight/8;
+    				  position = 2;
+    				  break;
+
+    			  case 2:
+    			      newPos.axes[0] = screenWidth/8;
+    			      newPos.axes[1] = screenHeight/8;
+    			      position = 3;
+    			      break;
+
+    			  case 3:
+      				  newPos.axes[0] = screenWidth/3;
+      				  newPos.axes[1] = screenHeight/8;
+      				  position = 0;
+       				  break;
+
+    		    }
     	}
     	//if(player1Score == '5' || player2Score == '5'){
     	//state = 1;
