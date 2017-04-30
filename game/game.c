@@ -135,7 +135,7 @@ void moveBall(MovLayer *mlBall, Region *fence1, MovLayer *mlPaddle)
     	//state = 1;
     	//}
     } /**< for axis */
-    ml3->layer->posNext = newPos;
+    mlBall->layer->posNext = newPos;
   } /**< for ml */
 }
 
