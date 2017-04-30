@@ -274,6 +274,135 @@ void wdt_c_handler()
 
     redrawScreen = 1;
     count = 0;
-  P1OUT &= ~GREEN_LED;	/**< Green LED off when cpu off */
+    P1OUT &= ~GREEN_LED;	/**< Green LED off when cpu off */
   }
 }/****END****/
+
+void __interrupt_vec(WDT_VECTOR) WDT(){	        // 250 interrupts/sec
+	if(bullet_sound) {
+		static char sound_count = 0;
+	        if(sound_count == 0)
+	        	make_bullet_sound(1);
+	        if (++sound_count == 50) {
+	            make_bullet_sound(0);
+	            sound_count = 0;
+	            bullet_sound = 0;
+	        }
+	}
+}
+
+void make_bullet_sound(char sound_enable){
+// Makes the actual sound of a bullet being realeased, every time the user
+// realeases a bullet, the game will make an special sound
+    if(sound_enable){
+        CCR0 = 2000;
+        CCR1 = 1000;
+    }else{
+        CCR0 = 0;
+        CCR1 = 0;
+    }
+
+}
+
+
+/*void __interrupt_vec(PORT2_VECTOR) Port_2(){
+    if (P2IFG & SWITCHES) {	          // did a button cause this interrupt?
+        P2IFG &= ~SWITCHES;		      // clear pending switches interrupts
+        switch_interrupt_handler();
+    }
+
+}*/
+
+/*void __interrupt_vec(WDT_VECTOR) WDT(){	        // 250 interrupts/sec
+	if(enable_sound){
+		if(bullet_sound) {
+			static char sound_count = 0;
+	        	if(sound_count == 0)
+	        		make_bullet_sound(1);
+	        	if (++sound_count == 50) {
+	                make_bullet_sound(0);
+	                sound_count = 0;
+	                bullet_sound = 0;
+	        	}
+	    }
+	}
+
+
+
+	if(state == 0){
+        static char decisecond_count = 0;
+        if (++decisecond_count == 110) {
+            drawBlinkText("Press S1");
+            decisecond_count = 0;
+        }
+    }
+    if(state == 1){
+        if(bullet_was_fired){
+            static char second_count = 0;                     // state is 3 when a song is paused
+            if (++second_count == 10) {
+                    fire_bullet_handler();
+                    second_count = 0;
+            }
+        }
+
+       static char second_count = 0;                     // state is 3 when a song is paused
+       if (++second_count == 20) {
+           static char alien_turn = 2;
+           if(alien_turn == 2){
+                mov_aliens2();
+                alien_turn = 1;
+           }
+           else if(alien_turn == 1){
+                mov_aliens();
+                alien_turn = 2;
+           }
+           second_count = 0;
+       }
+       static short level_count = 0;                     // state is 3 when a song is paused
+       if(game_level > 1 && ++level_count == 800) {
+           level_count = 0;
+           if(ALIEN1_LIVES)
+               change_velDirection(&mvA1);
+           if(ALIEN2_LIVES)
+               change_velDirection(&mvA2);
+       }
+       if (game_level == 3 && level_count%400 == 1) {
+           change_alienColor();
+       }
+       static char score_count = 0;                     // state is 3 when a song is paused
+       if (score && ++score_count == 250) {
+           drawScore(--score);
+           score_count = 0;
+           if(!score)
+               gameover_state();
+       }
+
+    }
+    if(enable_sound){
+       if(bullet_sound){
+           static char sound_count = 0;
+           if(sound_count == 0)
+               make_bullet_sound(1);
+           if (++sound_count == 50) {
+                make_bullet_sound(0);
+                sound_count = 0;
+                bullet_sound = 0;
+           }
+      }
+      if(selected_song){
+        static char music_count = 0;
+        if (++music_count == 50) {
+            buzzer_advance_frequency();     // buzzer_advance_frequency generates the sound
+            music_count = 0;
+            note++;
+        }
+      }
+
+    }
+    else{
+        bullet_sound = 0;
+        selected_song = 0;
+    }
+
+}*/
+
