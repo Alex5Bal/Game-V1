@@ -12,7 +12,7 @@
 u_char score = '0';
 u_char lives = '3';
 static int state = 0;
-char bullet_sound;
+char paddleSound;
 
 Region fence = {{10,20}, {SHORT_EDGE_PIXELS-10, LONG_EDGE_PIXELS-10}};
 AbRect rect = {abRectGetBounds, abRectCheck, {12,2}};
@@ -127,7 +127,7 @@ void moveBall(MovLayer *mlBall, Region *fence1, MovLayer *mlPaddle)
     	else if((abShapeCheck(mlPaddle->layer->abShape, &mlPaddle->layer->posNext, &mlBall->layer->posNext))) {
     		velocity = mlBall->velocity.axes[axis] = -mlBall->velocity.axes[axis];
     		newPos.axes[axis] += (4*velocity);
-    		bullet_sound = 1;
+    		paddleSound = 1;
     		if (score <= '8')
     			score += 1;
 
@@ -271,14 +271,14 @@ void wdt_c_handler()
     	moveLeft(&mlPaddle, &fence);
     }
 
-    if(bullet_sound) {
+    if(paddleSound) {
     	static char sound_count = 0;
     		if(sound_count == 0)
     			makePaddleSound(1);
     	    if (++sound_count == 25) {
     	        makePaddleSound(0);
     	        sound_count = 0;
-    	        bullet_sound = 0;
+    	        paddleSound = 0;
     	    }
     }
 
