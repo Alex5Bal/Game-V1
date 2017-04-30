@@ -163,6 +163,9 @@ void moveBall(MovLayer *mlBall, Region *fence1, MovLayer *mlPaddle)
     		state = 1;
     	}
 
+    	if (score > '8')
+    	    state = 2;
+
     } /**< for axis */
 
     mlBall->layer->posNext = newPos;
@@ -268,7 +271,7 @@ void wdt_c_handler()
   count ++;
   u_int switches = p2sw_read();
 
-  if(count == 10) {
+  if(count == 5) {
 
 	switch(state) {
 
@@ -279,6 +282,11 @@ void wdt_c_handler()
 		case 1:
 			drawString5x7(40, 80, "GAME OVER", COLOR_WHITE, COLOR_BLACK);
 			break;
+
+		case 2:
+			drawString5x7(45, 80, "YOU WIN", COLOR_WHITE, COLOR_BLACK);
+			break;
+
     }
 
     if(switches & (1<<3)) {
