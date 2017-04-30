@@ -285,6 +285,10 @@ void wdt_c_handler()
     	moveRight(&mlPaddle, &fence);
     }
 
+    if(switches & (1<<2)) {
+        moveBall(&mlBall, &fence, &mlPaddle);
+    }
+
     if(switches & (1<<0)) {
     	moveLeft(&mlPaddle, &fence);
     }
