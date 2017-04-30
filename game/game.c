@@ -255,7 +255,6 @@ void wdt_c_handler()
 
 		case 1:
 			drawString5x7(40, 80, "GAME OVER", COLOR_WHITE, COLOR_BLACK);
-			buzzerAdvanceFrequency();
 			break;
 
 		case 2:
@@ -295,24 +294,11 @@ void makePaddleSound(char enable){
 // realeases a bullet, the game will make an special sound
     if(enable){
         CCR0 = 3000;
-        CCR1 = 2900 >> 1;
+        CCR1 = 2500 ;
     }
     else{
         CCR0 = 0;
         CCR1 = 0;
     }
 
-}
-
-void buzzerAdvanceFrequency() {
-
-	period += rate;
-
-	if ((rate > 0 && (period > MAX_PERIOD)) || (rate < 0 && (period < MIN_PERIOD))) {
-
-		rate = -rate;
-		period += (rate << 1);
-	}
-
-	buzzerSetPeriod(period);
 }
