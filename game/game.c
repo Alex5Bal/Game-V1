@@ -127,44 +127,13 @@ void moveBall(MovLayer *mlBall, Region *fence1, MovLayer *mlPaddle)
     	else if((abShapeCheck(mlPaddle->layer->abShape, &mlPaddle->layer->posNext, &mlBall->layer->posNext))) {
     		velocity = mlBall->velocity.axes[axis] = -mlBall->velocity.axes[axis];
     		newPos.axes[axis] += (4*velocity);
-    		paddleSound(1);
-    		paddleSound(0);
     		if (score <= '8')
     			score += 1;
 
     	}
     	else if((shapeBoundary.botRight.axes[1] > fence1->botRight.axes[1]) && (lives != '0')) {
     		lives -= 1;
-
-    		/*switch(position){
-
-    			  case 0:
-    				  newPos.axes[0] = screenWidth/2;
-    				  newPos.axes[1] = screenHeight/8;
-    				  position = 1;
-    				  break;
-
-    			  case 1:
-    				  newPos.axes[0] = screenWidth/4;
-    				  newPos.axes[1] = screenHeight/8;
-    				  position = 2;
-    				  break;
-
-    			  case 2:
-    			      newPos.axes[0] = screenWidth/8;
-    			      newPos.axes[1] = screenHeight/8;
-    			      position = 3;
-    			      break;
-
-    			  case 3:
-      				  newPos.axes[0] = screenWidth/3;
-      				  newPos.axes[1] = screenHeight/8;
-      				  position = 0;
-       				  break;
-
-    		  }*/
     	}
-
     	if(lives == '0')
     		state = 1;
 
@@ -265,6 +234,8 @@ void main()
     drawString5x7(80, 0, "LIVES:", COLOR_WHITE, COLOR_BLACK);
     drawChar5x7(120, 0, lives, COLOR_WHITE, COLOR_BLACK);
     drawString5x7(50, 150, "PONG", COLOR_WHITE, COLOR_BLACK);
+    drawString5x7(0, 150, "S1-RIGHT", COLOR_WHITE, COLOR_BLACK);
+    drawString5x7(80, 150, "S4-LEFT", COLOR_WHITE, COLOR_BLACK);
   }
 }
 
@@ -306,18 +277,3 @@ void wdt_c_handler()
   P1OUT &= ~GREEN_LED;	/**< Green LED off when cpu off */
   }
 }/****END****/
-
-
-void paddleSound(char sound_enable){
-// Makes the actual sound of a bullet being realeased, every time the user
-// realeases a bullet, the game will make an special sound
-    if(sound_enable){
-        CCR0 = 2000;
-        CCR1 = 1000;
-    }else{
-        CCR0 = 0;
-        CCR1 = 0;
-    }
-
-}
-
