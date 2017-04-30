@@ -9,31 +9,19 @@
 
 #define GREEN_LED BIT6
 
-/*int abSlicedRectCheck(const AbRect *rect, const Vec2 *centerPos, const Vec2 *pixel)
-{
-  Vec2 relPos;
-  vec2Sub(&relPos, pixel, centerPos);  vector from center to pixel
-
-   reject pixels in slice
-  if (relPos.axes[0] >= 0 && relPos.axes[1]/2 < relPos.axes[1])
-    return 0;
-  else
-    return abRectCheck(rect, centerPos, pixel);
-}*/
-
-Region fence = {{10,20}, {SHORT_EDGE_PIXELS-10, LONG_EDGE_PIXELS-10}};
-AbRect rect = {abRectGetBounds, abRectCheck, {12,2}};
-
 u_char score = '0';
 u_char lives = '3';
 static int state = 0;
+
+Region fence = {{10,20}, {SHORT_EDGE_PIXELS-10, LONG_EDGE_PIXELS-10}};
+AbRect rect = {abRectGetBounds, abRectCheck, {12,2}};
 
 AbRectOutline fieldOutline = {	/* playing field */
   abRectOutlineGetBounds, abRectOutlineCheck,
   {screenWidth/2-5, screenHeight/2-12}
 };
 
-Layer fieldLayer = {
+Layer field = {
   (AbShape *)&fieldOutline,
   {screenWidth/2, screenHeight/2},
   {0,0}, {0,0},
@@ -41,20 +29,20 @@ Layer fieldLayer = {
   0,
 };
 
-Layer layer3 = {		/**< Layer with an yellow circle */
+Layer ball = {		/**< Layer with an yellow circle */
   (AbShape *)&circle4,
   {(screenWidth/2), (screenHeight/8)}, /**<center */
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_WHITE,
-  &fieldLayer,
+  &field,
 };
 
-Layer layer1 = {		/* playing field as a layer */
+Layer paddle = {		/* playing field as a layer */
   (AbShape *)&rect,
   {screenWidth/2, screenHeight-16},     //current pos
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_WHITE,
-  &layer3
+  &ball
 };
 
 /** Moving Layer
@@ -68,8 +56,8 @@ typedef struct MovLayer_s {
 } MovLayer;
 
 /* initial value of {0,0} will be overwritten */
-MovLayer ml1 = { &layer1, {2,0}, 0 }; //paddle
-MovLayer ml3 = { &layer3, {3,4}, 0 }; //ball
+MovLayer mlPaddle = { &paddle, {2,0}, 0 }; //paddle
+MovLayer mlBall = { &ball, {3,4}, 0 }; //ball
 
 void movLayerDraw(MovLayer *movLayers, Layer *layers)
 {
@@ -112,30 +100,28 @@ void movLayerDraw(MovLayer *movLayers, Layer *layers)
  *  \param ml The moving shape to be advanced
  *  \param fence The region which will serve as a boundary for ml
  */
-void moveBall(MovLayer *ml3, Region *fence1, MovLayer *ml1)
+void moveBall(MovLayer *mlBall, Region *fence1, MovLayer *mlPaddle)
 {
   Vec2 newPos;
   u_char axis;
   Region shapeBoundary;
   int velocity;
-  for (; ml3; ml3 = ml3->next) {
-    vec2Add(&newPos, &ml3->layer->posNext, &ml3->velocity);
-    abShapeGetBounds(ml3->layer->abShape, &newPos, &shapeBoundary);
+
+  for (; mlBall; mlBall = mlBall->next) {
+    vec2Add(&newPos, &mlBall->layer->posNext, &mlBall->velocity);
+    abShapeGetBounds(mlBall->layer->abShape, &newPos, &shapeBoundary);
 
     for (axis = 0; axis < 2; axis ++){
 
     	if((shapeBoundary.topLeft.axes[axis] < fence1->topLeft.axes[axis]) ||
     		(shapeBoundary.botRight.axes[axis] > fence1->botRight.axes[axis])){
 
-    		velocity = ml3->velocity.axes[axis] = -ml3->velocity.axes[axis];
+    		velocity = mlBall->velocity.axes[axis] = -mlBall->velocity.axes[axis];
     		newPos.axes[axis] += (2*velocity);
     	}
-    	else if((abShapeCheck(ml1->layer->abShape, &ml1->layer->posNext, &ml3->layer->posNext))){
-    		velocity = ml3->velocity.axes[axis] = -ml3->velocity.axes[axis];
+    	else if((abShapeCheck(mlPaddle->layer->abShape, &mlPaddle->layer->posNext, &mlBall->layer->posNext))){
+    		velocity = mlBall->velocity.axes[axis] = -mlBall->velocity.axes[axis];
     		newPos.axes[axis] += (2*velocity);
-    		CCR0 = 2000;
-    		CCR1 = 1000;
-    		buzzer_set_period(0);
     		if (score <= '8')
     			score += 1;
 
@@ -183,6 +169,7 @@ void moveLeft(MovLayer *ml, Region *fence)
   Vec2 newPos;
   u_char axis;
   Region shapeBoundary;
+
   for (; ml; ml = ml->next) {
     vec2Sub(&newPos, &ml->layer->posNext, &ml->velocity);
     abShapeGetBounds(ml->layer->abShape, &newPos, &shapeBoundary);
@@ -218,9 +205,9 @@ void main()
   lcd_init(); //initialize lcd
   buzzer_init(); //initialize buzzer
   p2sw_init(15); //initialize switches
-  layerInit(&layer1); //Passes the first element from a MoveLayer LL to initialize shapes
-  layerDraw(&layer1); //Passes the first element from a MoveLayer LL to draw shapes
-  layerGetBounds(&fieldLayer, &fence);
+  layerInit(&paddle); //Passes the first element from a MoveLayer LL to initialize shapes
+  layerDraw(&paddle); //Passes the first element from a MoveLayer LL to draw shapes
+  layerGetBounds(&field, &fence);
   enableWDTInterrupts();      // enable periodic interrupt
   or_sr(0x8);	              // GIE (enable interrupts)
 
@@ -233,10 +220,10 @@ void main()
     }
     P1OUT |= GREEN_LED; // Green led on when CPU on
     redrawScreen = 0;
-    movLayerDraw(&ml3, &layer1);
-    movLayerDraw(&ml1, &layer1);
+    movLayerDraw(&mlBall, &paddle);
+    movLayerDraw(&mlPaddle, &paddle);
     drawString5x7(5, 0, "SCORE:", COLOR_WHITE, COLOR_BLACK);
-    drawChar5x7(45, 0, score, COLOR_WHITE, COLOR_BLACK); //Scoreboard
+    drawChar5x7(45, 0, score, COLOR_WHITE, COLOR_BLACK);
     drawString5x7(70, 0, "LIVES:", COLOR_WHITE, COLOR_BLACK);
     drawChar5x7(110, 0, lives, COLOR_WHITE, COLOR_BLACK);
     drawString5x7(50, 150, "PONG", COLOR_WHITE, COLOR_BLACK);
@@ -249,13 +236,17 @@ void wdt_c_handler()
   P1OUT |= GREEN_LED;		      /**< Green LED on when cpu on */
   count ++;
   u_int switches = p2sw_read();
-  if(count == 10){
-    switch(state){
-    case 0:
-      moveBall(&ml3, &fence, &ml1);
+
+  if(count == 25){
+
+	  switch(state){
+
+	  case 0:
+      moveBall(&mlBall, &fence, &mlPaddle);
       break;
-    case 1:
-      layerDraw(&layer1);
+
+	  case 1:
+      layerDraw(&paddle);
       break;
     }
       /*if(player1Score > player2Score)
@@ -266,17 +257,13 @@ void wdt_c_handler()
     }*/
     //starWarsTheme();
     if(switches & (1<<3)){
-      moveRight(&ml1, &fence);
+      moveRight(&mlPaddle, &fence);
     }
-    /*if(switches & (1<<2)){
-      moveLeft(&ml1, &fence);
-    }
-    if(switches & (1<<1)){
-      moveRight(&ml1, &fence);
-    }*/
+
     if(switches & (1<<0)){
-      moveLeft(&ml1, &fence);
+      moveLeft(&mlPaddle, &fence);
     }
+
     redrawScreen = 1;
     count = 0;
   P1OUT &= ~GREEN_LED;	/**< Green LED off when cpu off */
