@@ -274,24 +274,23 @@ void wdt_c_handler()
     	moveLeft(&mlPaddle, &fence);
     }
 
+    if(bullet_sound) {
+    	static char sound_count = 0;
+    		if(sound_count == 0)
+    			make_bullet_sound(1);
+    	    if (++sound_count == 50) {
+    	        make_bullet_sound(0);
+    	        sound_count = 0;
+    	        bullet_sound = 0;
+    	    }
+    }
+
     redrawScreen = 1;
     count = 0;
     P1OUT &= ~GREEN_LED;	/**< Green LED off when cpu off */
   }
 }/****END****/
 
-void __interrupt_vec(WDT_VECTOR) WDT(){	        // 250 interrupts/sec
-	if(bullet_sound) {
-		static char sound_count = 0;
-	        if(sound_count == 0)
-	        	make_bullet_sound(1);
-	        if (++sound_count == 50) {
-	            make_bullet_sound(0);
-	            sound_count = 0;
-	            bullet_sound = 0;
-	        }
-	}
-}
 
 void make_bullet_sound(char sound_enable){
 // Makes the actual sound of a bullet being realeased, every time the user
