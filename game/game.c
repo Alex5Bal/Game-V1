@@ -128,6 +128,7 @@ void moveBall(MovLayer *mlBall, Region *fence1, MovLayer *mlPaddle)
     		velocity = mlBall->velocity.axes[axis] = -mlBall->velocity.axes[axis];
     		newPos.axes[axis] += (4*velocity);
     		paddleSound(1);
+    		paddleSound(0);
     		if (score <= '8')
     			score += 1;
 
