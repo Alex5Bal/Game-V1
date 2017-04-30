@@ -126,7 +126,7 @@ void moveBall(MovLayer *mlBall, Region *fence1, MovLayer *mlPaddle)
     	}
     	else if((abShapeCheck(mlPaddle->layer->abShape, &mlPaddle->layer->posNext, &mlBall->layer->posNext))) {
     		velocity = mlBall->velocity.axes[axis] = -mlBall->velocity.axes[axis];
-    		newPos.axes[axis] += (4*velocity);
+    		newPos.axes[axis] += (2*velocity);
     		paddleSound = 1;
     		if (score <= '8')
     			score += 1;
