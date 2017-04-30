@@ -133,6 +133,7 @@ void moveBall(MovLayer *ml3, Region *fence1, MovLayer *ml1)
     	else if((abShapeCheck(ml1->layer->abShape, &ml1->layer->posNext, &ml3->layer->posNext))){
     		velocity = ml3->velocity.axes[axis] = -ml3->velocity.axes[axis];
     		newPos.axes[axis] += (2*velocity);
+    		buzzer_set_period(950);
     		if (score <= '8')
     			score += 1;
 
