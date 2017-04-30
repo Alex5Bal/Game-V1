@@ -135,6 +135,7 @@ void moveBall(MovLayer *ml3, Region *fence1, MovLayer *ml1)
     		newPos.axes[axis] += (2*velocity);
     		CCR0 = 2000;
     		CCR1 = 1000;
+    		buzzer_set_period(0);
     		if (score <= '8')
     			score += 1;
 
@@ -267,11 +268,11 @@ void wdt_c_handler()
     if(switches & (1<<3)){
       moveRight(&ml1, &fence);
     }
-    if(switches & (1<<2)){
+    /*if(switches & (1<<2)){
       moveLeft(&ml1, &fence);
     }
     if(switches & (1<<1)){
-      moveRight(&ml1, &fence);
+      moveRight(&ml1, &fence);*/
     }
     if(switches & (1<<0)){
       moveLeft(&ml1, &fence);
