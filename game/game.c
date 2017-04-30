@@ -130,7 +130,7 @@ void moveBall(MovLayer *mlBall, Region *fence1, MovLayer *mlPaddle)
     	else if((shapeBoundary.botRight.axes[1] > fence1->botRight.axes[1]) && (lives != '0')){
     		lives -= 1;
 
-    		switch(position){
+    		/*switch(position){
 
     			  case 0:
     				  newPos.axes[0] = screenWidth/2;
@@ -156,7 +156,7 @@ void moveBall(MovLayer *mlBall, Region *fence1, MovLayer *mlPaddle)
       				  position = 0;
        				  break;
 
-    		    }
+    		  }*/
     	}
     	//if(player1Score == '5' || player2Score == '5'){
     	//state = 1;
