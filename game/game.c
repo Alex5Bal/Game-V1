@@ -12,7 +12,7 @@
 u_char score = '0';
 u_char lives = '3';
 static int state = 0;
-static int position = 0;
+//static int position = 0;
 
 Region fence = {{10,20}, {SHORT_EDGE_PIXELS-10, LONG_EDGE_PIXELS-10}};
 AbRect rect = {abRectGetBounds, abRectCheck, {12,2}};
@@ -122,7 +122,7 @@ void moveBall(MovLayer *mlBall, Region *fence1, MovLayer *mlPaddle)
     	}
     	else if((abShapeCheck(mlPaddle->layer->abShape, &mlPaddle->layer->posNext, &mlBall->layer->posNext))){
     		velocity = mlBall->velocity.axes[axis] = -mlBall->velocity.axes[axis];
-    		newPos.axes[axis] += (2*velocity);
+    		newPos.axes[axis] += (3*velocity);
     		if (score <= '8')
     			score += 1;
 
@@ -264,31 +264,25 @@ void wdt_c_handler()
   count ++;
   u_int switches = p2sw_read();
 
-  if(count == 10){
+  if(count == 10) {
 
-	  switch(state){
+	switch(state) {
 
-	  case 0:
-      moveBall(&mlBall, &fence, &mlPaddle);
-      break;
+		case 0:
+			moveBall(&mlBall, &fence, &mlPaddle);
+			break;
 
-	  case 1:
-      layerDraw(&paddle);
-      break;
-    }
-      /*if(player1Score > player2Score)
-	drawString5x7(28, 50, "PLAYER 1 WON!", COLOR_BLACK, COLOR_BLUE);
-      else if(player1Score < player2Score)
-	drawString5x7(28, 50, "PLAYER 2 WON!", COLOR_BLACK, COLOR_BLUE);
-      break;
-    }*/
-    //starWarsTheme();
-    if(switches & (1<<3)){
-      moveRight(&mlPaddle, &fence);
+		case 1:
+			layerDraw(&paddle);
+			break;
     }
 
-    if(switches & (1<<0)){
-      moveLeft(&mlPaddle, &fence);
+    if(switches & (1<<3)) {
+    	moveRight(&mlPaddle, &fence);
+    }
+
+    if(switches & (1<<0)) {
+    	moveLeft(&mlPaddle, &fence);
     }
 
     redrawScreen = 1;
