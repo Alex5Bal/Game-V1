@@ -12,7 +12,8 @@
 u_char score = '0';
 u_char lives = '3';
 static int state = 0;
-char paddleSound;
+char bullet_sound;
+//static int position = 0;
 
 Region fence = {{10,20}, {SHORT_EDGE_PIXELS-10, LONG_EDGE_PIXELS-10}};
 AbRect rect = {abRectGetBounds, abRectCheck, {12,2}};
@@ -127,7 +128,7 @@ void moveBall(MovLayer *mlBall, Region *fence1, MovLayer *mlPaddle)
     	else if((abShapeCheck(mlPaddle->layer->abShape, &mlPaddle->layer->posNext, &mlBall->layer->posNext))) {
     		velocity = mlBall->velocity.axes[axis] = -mlBall->velocity.axes[axis];
     		newPos.axes[axis] += (4*velocity);
-    		paddleSound = 1;
+    		bullet_sound = 1;
     		if (score <= '8')
     			score += 1;
 
@@ -271,16 +272,15 @@ void wdt_c_handler()
     	moveLeft(&mlPaddle, &fence);
     }
 
-    if(paddleSound) {
-    	static char noiseCount = 0;
-
-    	if(noiseCount == 0)
-    		make_Paddle_Sound(1);
-    	if (++noiseCount == 25) {
-    	    make_Paddle_Sound(0);
-    	    noiseCount = 0;
-    	    paddleSound = 0;
-    	}
+    if(bullet_sound) {
+    	static char sound_count = 0;
+    		if(sound_count == 0)
+    			make_bullet_sound(1);
+    	    if (++sound_count == 25) {
+    	        make_bullet_sound(0);
+    	        sound_count = 0;
+    	        bullet_sound = 0;
+    	    }
     }
 
     redrawScreen = 1;
@@ -290,10 +290,10 @@ void wdt_c_handler()
 }/****END****/
 
 
-void make_Padddle_Sound(char enable){
+void make_bullet_sound(char sound_enable){
 // Makes the actual sound of a bullet being realeased, every time the user
 // realeases a bullet, the game will make an special sound
-    if(enable){
+    if(sound_enable){
         CCR0 = 1000;
         CCR1 = 500;
     }else{
