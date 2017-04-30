@@ -272,8 +272,8 @@ void wdt_c_handler()
       moveLeft(&ml1, &fence);
     }
     if(switches & (1<<1)){
-      moveRight(&ml1, &fence);*/
-    }
+      moveRight(&ml1, &fence);
+    }*/
     if(switches & (1<<0)){
       moveLeft(&ml1, &fence);
     }
