@@ -122,7 +122,7 @@ void moveBall(MovLayer *mlBall, Region *fence1, MovLayer *mlPaddle)
     	}
     	else if((abShapeCheck(mlPaddle->layer->abShape, &mlPaddle->layer->posNext, &mlBall->layer->posNext))){
     		velocity = mlBall->velocity.axes[axis] = -mlBall->velocity.axes[axis];
-    		newPos.axes[axis] += (3*velocity);
+    		newPos.axes[axis] += (4*velocity);
     		if (score <= '8')
     			score += 1;
 
@@ -251,8 +251,8 @@ void main()
     movLayerDraw(&mlPaddle, &paddle);
     drawString5x7(5, 0, "SCORE:", COLOR_WHITE, COLOR_BLACK);
     drawChar5x7(45, 0, score, COLOR_WHITE, COLOR_BLACK);
-    drawString5x7(70, 0, "LIVES:", COLOR_WHITE, COLOR_BLACK);
-    drawChar5x7(110, 0, lives, COLOR_WHITE, COLOR_BLACK);
+    drawString5x7(87, 0, "LIVES:", COLOR_WHITE, COLOR_BLACK);
+    drawChar5x7(127, 0, lives, COLOR_WHITE, COLOR_BLACK);
     drawString5x7(50, 150, "PONG", COLOR_WHITE, COLOR_BLACK);
   }
 }
