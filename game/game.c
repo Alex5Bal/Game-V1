@@ -234,8 +234,8 @@ void main()
     drawString5x7(80, 0, "LIVES:", COLOR_WHITE, COLOR_BLACK);
     drawChar5x7(120, 0, lives, COLOR_WHITE, COLOR_BLACK);
     //drawString5x7(50, 150, "PONG", COLOR_WHITE, COLOR_BLACK);
-    drawString5x7(0, 150, "S1-RIGHT", COLOR_WHITE, COLOR_BLACK);
-    drawString5x7(90, 150, "S4-LEFT", COLOR_WHITE, COLOR_BLACK);
+    drawString5x7(0, 150, "S1-R", COLOR_WHITE, COLOR_BLACK);
+    drawString5x7(100, 150, "S4-L", COLOR_WHITE, COLOR_BLACK);
   }
 }
 
