@@ -287,15 +287,14 @@ void wdt_c_handler()
     count = 0;
     P1OUT &= ~GREEN_LED;	/**< Green LED off when cpu off */
   }
-}/****END****/
-
+}
 
 void makePaddleSound(char enable){
 // Makes the actual sound of a bullet being realeased, every time the user
 // realeases a bullet, the game will make an special sound
     if(enable){
-        CCR0 = 1000;
-        CCR1 = 500;
+        CCR0 = 100;
+        CCR1 = 50;
     }
     else{
         CCR0 = 0;
