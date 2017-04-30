@@ -277,7 +277,7 @@ void wdt_c_handler()
 			break;
 
 		case 1:
-			layerDraw(&paddle);
+			drawString5x7(60, 120, "GAME OVER", COLOR_WHITE, COLOR_BLACK);
 			break;
     }
 
