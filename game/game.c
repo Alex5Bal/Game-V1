@@ -237,7 +237,7 @@ void wdt_c_handler()
   count ++;
   u_int switches = p2sw_read();
 
-  if(count == 25){
+  if(count == 10){
 
 	  switch(state){
 
