@@ -8,7 +8,7 @@
 
 u_char score = '0';
 u_char lives = '3';
-static int state = 0;
+int state = 0;
 char paddleSound;
 
 typedef struct MovLayer_s {
@@ -156,55 +156,4 @@ void moveLeft(MovLayer *ml, Region *fence)
     ml->layer->posNext = newPos;
 
   } /**< for ml */
-}
-
-void wdt_c_handler()
-{
-  static short count = 0;
-  P1OUT |= GREEN_LED;		      /**< Green LED on when cpu on */
-  count ++;
-  u_int switches = p2sw_read();
-
-  if(count == 5) {
-
-	switch(state) {
-
-		case 0:
-			moveBall(&mlBall, &fence, &mlPaddle);
-			break;
-
-		case 1:
-			drawString5x7(40, 80, "GAME OVER", COLOR_WHITE, COLOR_BLACK);
-			break;
-
-		case 2:
-			drawString5x7(45, 80, "YOU WIN", COLOR_WHITE, COLOR_BLACK);
-			break;
-
-    }
-
-    if(switches & (1<<3)) {
-    	moveRight(&mlPaddle, &fence);
-    }
-
-    if(switches & (1<<0)) {
-    	moveLeft(&mlPaddle, &fence);
-    }
-
-    if(paddleSound) {
-    	static char counter = 0;
-
-    	if(counter == 0)
-    		makePaddleSound(1);
-    	if (++counter == 20) {
-    	    makePaddleSound(0);
-    	    counter = 0;
-    	    paddleSound = 0;
-    	}
-    }
-
-    redrawScreen = 1;
-    count = 0;
-    P1OUT &= ~GREEN_LED;	/**< Green LED off when cpu off */
-  }
 }

@@ -10,7 +10,7 @@
 
 u_char score;
 u_char lives;
-static int state;
+int state;
 char paddleSound;
 
 typedef struct MovLayer_s {
@@ -29,7 +29,5 @@ void moveBall(MovLayer *mlBall, Region *fence1, MovLayer *mlPaddle);
 void moveRight(MovLayer *ml, Region *fence);
 
 void moveLeft(MovLayer *ml, Region *fence);
-
-void wdt_c_handler();
 
 #endif
