@@ -14,10 +14,10 @@ u_char lives = '3';
 static int state = 0;
 char paddleSound;
 
-Region fence = {{10,20}, {SHORT_EDGE_PIXELS-10, LONG_EDGE_PIXELS-10}};
+/*Region fence = {{10,20}, {SHORT_EDGE_PIXELS-10, LONG_EDGE_PIXELS-10}};
 AbRect rect = {abRectGetBounds, abRectCheck, {12,2}};
 
-AbRectOutline fieldOutline = {	/* playing field */
+AbRectOutline fieldOutline = {	 playing field
   abRectOutlineGetBounds, abRectOutlineCheck,
   {screenWidth/2-5, screenHeight/2-12}
 };
@@ -30,21 +30,21 @@ Layer field = {
   0,
 };
 
-Layer ball = {		/**< Layer with an yellow circle */
+Layer ball = {		*< Layer with an yellow circle
   (AbShape *)&circle4,
-  {(screenWidth/2), (screenHeight/8)}, /**<center */
-  {0,0}, {0,0},				    /* last & next pos */
+  {(screenWidth/2), (screenHeight/8)}, *<center
+  {0,0}, {0,0},				     last & next pos
   COLOR_WHITE,
   &field,
 };
 
-Layer paddle = {		/* playing field as a layer */
+Layer paddle = {		 playing field as a layer
   (AbShape *)&rect,
   {screenWidth/2, screenHeight-16},     //current pos
-  {0,0}, {0,0},				    /* last & next pos */
+  {0,0}, {0,0},				     last & next pos
   COLOR_WHITE,
   &ball
-};
+};*/
 
 /** Moving Layer
  *  Linked list of layer references
@@ -200,7 +200,6 @@ void moveLeft(MovLayer *ml, Region *fence)
 
 u_int bgColor = COLOR_BLACK;     /**< The background color */
 int redrawScreen = 1;           /**< Boolean for whether screen needs to be redrawn */
-//Region fieldFence;		/**< fence around playing field  */
 
 /** Initializes everything, enables interrupts and green LED,
  *  and handles the rendering for the screen
@@ -288,17 +287,3 @@ void wdt_c_handler()
     P1OUT &= ~GREEN_LED;	/**< Green LED off when cpu off */
   }
 }
-
-/*void makePaddleSound(char enable){
-// Makes the actual sound of a bullet being realeased, every time the user
-// realeases a bullet, the game will make an special sound
-    if(enable){
-        CCR0 = 5000;
-        CCR1 = 4500 ;
-    }
-    else{
-        CCR0 = 0;
-        CCR1 = 0;
-    }
-
-}*/
