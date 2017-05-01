@@ -23,24 +23,6 @@ void buzzerInit(){
   P2DIR = BIT6; //enable output to speaker (P2.6)
 }
 
-void buzzerAdvanceFrequency() {
-
-	period += rate;
-
-	if ((rate > 0 && (period > MAX_PERIOD)) || (rate < 0 && (period < MIN_PERIOD))) {
-
-		rate = -rate;
-		period += (rate << 1);
-	}
-
-	buzzerSetPeriod(period);
-}
-
-void buzzerSetPeriod(short cycles) {
-  CCR0 = cycles;
-  CCR1 = cycles >> 1; //one half cycle
-}
-
 void makePaddleSound(char enable) {
 // Makes the actual sound of a bullet being realeased, every time the user
 // realeases a bullet, the game will make an special sound
