@@ -30,4 +30,6 @@ void moveRight(MovLayer *ml, Region *fence);
 
 void moveLeft(MovLayer *ml, Region *fence);
 
+void wdt_c_handler();
+
 #endif
