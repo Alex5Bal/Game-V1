@@ -27,7 +27,7 @@ char paddleSound;
 } MovLayer;
 
 /* initial value of {0,0} will be overwritten */
-MovLayer mlPaddle = { &paddle, {2,0}, 0 }; //paddle
+/*MovLayer mlPaddle = { &paddle, {2,0}, 0 }; //paddle
 MovLayer mlBall = { &ball, {3,4}, 0 }; //ball
 
 void movLayerDraw(MovLayer *movLayers, Layer *layers)
