@@ -19,6 +19,9 @@ typedef struct MovLayer_s {
   struct MovLayer_s *next;
 } MovLayer;
 
+MovLayer mlPaddle;
+MovLayer mlBall;
+
 void movLayerDraw(MovLayer *movLayers, Layer *layers);
 
 void moveBall(MovLayer *mlBall, Region *fence1, MovLayer *mlPaddle);
