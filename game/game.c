@@ -11,10 +11,10 @@
 
 #define GREEN_LED BIT6
 
-u_char score = '0';
+/*u_char score = '0';
 u_char lives = '3';
 static int state = 0;
-char paddleSound;
+char paddleSound;*/
 
 /** Moving Layer
  *  Linked list of layer references
