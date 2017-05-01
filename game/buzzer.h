@@ -1,7 +1,7 @@
 #ifndef buzzer_included
 #define buzzer_included
 
-void buzzerInit();
+void buzzer_init();
 void makePaddleSound(char enable);
 
 #endif

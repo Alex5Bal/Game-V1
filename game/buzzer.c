@@ -8,7 +8,7 @@ signed int rate = 1000;
 #define MIN_PERIOD 1000
 #define MAX_PERIOD 6000
 
-void buzzerInit(){
+void buzzer_init(){
   /*
     Direct timer A output "TA0.1" to P2.6.
     According to table 21 from data sheet:
