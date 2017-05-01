@@ -1,4 +1,3 @@
-#include <lcddraw.h>
 #include <shape.h>
 #include <abCircle.h>
 
