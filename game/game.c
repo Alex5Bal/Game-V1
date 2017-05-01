@@ -6,6 +6,7 @@
 #include <shape.h>
 #include <abCircle.h>
 #include "buzzer.h"
+#include "gameLayers.h"
 
 #define GREEN_LED BIT6
 
