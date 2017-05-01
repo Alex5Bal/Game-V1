@@ -20,14 +20,14 @@ char paddleSound;
  *  Linked list of layer references
  *  Velocity represents one iteration of change (direction & magnitude)
  */
-typedef struct MovLayer_s {
+/*typedef struct MovLayer_s {
   Layer *layer;
   Vec2 velocity;
   struct MovLayer_s *next;
 } MovLayer;
 
 /* initial value of {0,0} will be overwritten */
-/*MovLayer mlPaddle = { &paddle, {2,0}, 0 }; //paddle
+MovLayer mlPaddle = { &paddle, {2,0}, 0 }; //paddle
 MovLayer mlBall = { &ball, {3,4}, 0 }; //ball
 
 void movLayerDraw(MovLayer *movLayers, Layer *layers)
