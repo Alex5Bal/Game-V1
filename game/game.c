@@ -23,10 +23,7 @@ void main() /* Handles initializations, clock configuration, screen display, and
   lcd_init(); 				//LCD initialization
   buzzer_init(); 			//buzzer initialization
   p2sw_init(15); 			//switches initialization
-  game_init();
-  /*layerInit(&paddle); 		//layers initialization
-  layerDraw(&paddle); 		//draws shapes
-  layerGetBounds(&field, &fence);*/
+  game_init();				//layers initialization
   enableWDTInterrupts();    //enable periodic interrupt
   or_sr(0x8);	            //GIE (enable interrupts)
 
@@ -106,4 +103,3 @@ void game_init()
    layerGetBounds(&field, &fence);
 
 }
-

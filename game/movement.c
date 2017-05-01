@@ -6,36 +6,36 @@
 #include <abCircle.h>
 #include "gameLayers.h"
 
-u_char score = '0';
-u_char lives = '3';
-int state = 0;
-char paddleSound;
+u_char score = '0';		//game score
+u_char lives = '3';		//game lives
+int state = 0;			//game state
+char paddleSound;		//sound signaler
 
-typedef struct MovLayer_s {
+typedef struct MovLayer_s { /* Linked list of layer types */
   Layer *layer;
-  Vec2 velocity;
+  Vec2 velocity;			//direction and magnitude
   struct MovLayer_s *next;
 } MovLayer;
 
-MovLayer mlPaddle = { &paddle, {2,0}, 0 }; //paddle
-MovLayer mlBall = { &ball, {3,4}, 0 }; //ball
+MovLayer mlPaddle = { &paddle, {2,0}, 0 }; 	//paddle
+MovLayer mlBall = { &ball, {3,4}, 0 }; 		//ball
 
-void movLayerDraw(MovLayer *movLayers, Layer *layers)
+void movLayerDraw(MovLayer *movLayers, Layer *layers) /* Draws layers at appropriate positions */
 {
   int row, col;
   MovLayer *movLayer;
 
-  and_sr(~8);			/**< disable interrupts (GIE off) */
+  and_sr(~8);		//disable interrupts (GIE off)
 
-  for (movLayer = movLayers; movLayer; movLayer = movLayer->next) { // for each moving layer
+  for (movLayer = movLayers; movLayer; movLayer = movLayer->next) {
     Layer *l = movLayer->layer;
     l->posLast = l->pos;
     l->pos = l->posNext;
   }
 
-  or_sr(8);			/**< disable interrupts (GIE on) */
+  or_sr(8);			//enable interrupts (GIE on)
 
-  for (movLayer = movLayers; movLayer; movLayer = movLayer->next) { // for each moving layer
+  for (movLayer = movLayers; movLayer; movLayer = movLayer->next) {
     Region bounds;
     layerGetBounds(movLayer->layer, &bounds);
     lcd_setArea(bounds.topLeft.axes[0], bounds.topLeft.axes[1], bounds.botRight.axes[0], bounds.botRight.axes[1]);
@@ -47,25 +47,20 @@ void movLayerDraw(MovLayer *movLayers, Layer *layers)
     		u_int color = bgColor;
     		Layer *probeLayer;
 
-    		for (probeLayer = layers; probeLayer; probeLayer = probeLayer->next) { // probe all layers, in order
+    		for (probeLayer = layers; probeLayer; probeLayer = probeLayer->next) {
     			if (abShapeCheck(probeLayer->abShape, &probeLayer->pos, &pixelPos)) {
     				color = probeLayer->color;
     				break;
-    			} // if probe check makes the ball visible when moving
-    		} // for checking all layers at col, row
+    			} 	//if probe check makes the ball visible when moving
+    		} 		//for checking all layers at column, row
 
     		lcd_writeColor(color);
-      } // for col
-    } // for row
-  } // for moving layer being updated
+      } 			//for column
+    } 				//for row
+  } 				//for moving layer being updated
 }
 
-/** Advances a moving shape within a fence
- *
- *  \param ml The moving shape to be advanced
- *  \param fence The region which will serve as a boundary for ml
- */
-void moveBall(MovLayer *mlBall, Region *fence1, MovLayer *mlPaddle)
+void moveBall(MovLayer *mlBall, Region *fence1, MovLayer *mlPaddle) /* Determines effects of the ball */
 {
   Vec2 newPos;
   u_char axis;
@@ -101,14 +96,13 @@ void moveBall(MovLayer *mlBall, Region *fence1, MovLayer *mlPaddle)
     	if (score > '8')
     	    state = 2;
 
-    } /**< for axis */
+    }
 
     mlBall->layer->posNext = newPos;
-
-  } /**< for ml */
+  }
 }
 
-void moveRight(MovLayer *ml, Region *fence)
+void moveRight(MovLayer *ml, Region *fence) /* Controls paddle position when moving right */
 {
   Vec2 newPos;
   u_char axis;
@@ -124,16 +118,13 @@ void moveRight(MovLayer *ml, Region *fence)
     		newPos.axes[axis] += 1;
     	else if(shapeBoundary.botRight.axes[axis] > fence->botRight.axes[axis])
     	    newPos.axes[axis] += -1;
-      	// this if statement handles when a collision happens in the fence
-
-    } /**< for axis */
+    }
 
     ml->layer->posNext = newPos;
-
-  } /**< for ml */
+  }
 }
 
-void moveLeft(MovLayer *ml, Region *fence)
+void moveLeft(MovLayer *ml, Region *fence) /* Controls paddle position when moving left */
 {
   Vec2 newPos;
   u_char axis;
@@ -149,11 +140,9 @@ void moveLeft(MovLayer *ml, Region *fence)
     	    	newPos.axes[axis] += 1;
     	else if(shapeBoundary.botRight.axes[axis] > fence->botRight.axes[axis])
     	    	newPos.axes[axis] += -1;
-
-    	// this if statement handles when a collision happens in the fence
-    } /**< for axis */
+    }
 
     ml->layer->posNext = newPos;
 
-  } /**< for ml */
+  }
 }
