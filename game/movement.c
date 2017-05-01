@@ -11,6 +11,12 @@ u_char lives = '3';
 int state = 0;
 char paddleSound;
 
+typedef struct MovLayer_s {
+  Layer *layer;
+  Vec2 velocity;
+  struct MovLayer_s *next;
+} MovLayer;
+
 MovLayer mlPaddle = { &paddle, {2,0}, 0 }; //paddle
 MovLayer mlBall = { &ball, {3,4}, 0 }; //ball
 
