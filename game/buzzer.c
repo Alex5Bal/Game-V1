@@ -32,3 +32,24 @@ void buzzer_set_period(short cycles){
   CCR0 = cycles;
   CCR1 = cycles >> 1; //one half cycle
 }
+
+void gameOverSong(){
+  switch(counter){
+  case 0: buzzer_set_period(950); counter++; break; //Lower C note
+  case 1:
+  case 6:
+  case 11: buzzer_set_period(630); counter++; break; //G note
+  case 2:
+  case 7:
+  case 12:
+  case 14: buzzer_set_period(710); counter++; break; //F note
+  case 3:
+  case 8:
+  case 13: buzzer_set_period(750); counter++; break; //E note
+  case 4:
+  case 9:
+  case 15: buzzer_set_period(840); if(counter==15){counter = 0;} else{counter++;}; break;//D note
+  case 5:
+  case 10: buzzer_set_period(475); counter++; break; //C note
+  }
+}
