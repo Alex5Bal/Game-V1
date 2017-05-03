@@ -54,8 +54,14 @@ void gameOverSong(){
   		  break; //F note*/
   	  case 3:
   		  buzzer_set_period(700);
-  		  counter = 0;
-  		  break;//D note
+
+  		  	  if(counter == 3) {
+  		  		  counter = 0;
+  		  	  }
+  		  	  else {
+  		  		  counter++;
+  		  	  };
+  		  	  break;//D note
   	/*  case 6:
   	  case 7:
   	  case 8:
