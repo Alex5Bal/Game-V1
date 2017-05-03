@@ -2,6 +2,8 @@
 #include "buzzer.h"
 #include <msp430.h>
 
+static int counter = 0;
+
 void buzzer_init() {
   /*
     Direct timer A output "TA0.1" to P2.6.
