@@ -55,14 +55,14 @@ void gameOverSong(){
   	  case 5:
   		  buzzer_set_period(600);
 
-  		  	  if(counter == 30) {
+  		  	  if(counter == 5) {
   		  		  counter = 0;
   		  	  }
   		  	  else {
   		  		  counter++;
   		  	  };
   		  	  break;//D note
-  	  case 6:
+  	/*  case 6:
   	  case 7:
   	  case 8:
   	  case 9:
@@ -71,7 +71,7 @@ void gameOverSong(){
   	  case 12:
   	  case 13:
   	  case 14:
-  	  case 15:
+  	  case 15:*/
 
   }
 }
