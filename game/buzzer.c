@@ -2,7 +2,7 @@
 #include "buzzer.h"
 #include <msp430.h>
 
-void buzzer_init(){
+void buzzer_init() {
   /*
     Direct timer A output "TA0.1" to P2.6.
     According to table 21 from data sheet:
@@ -26,4 +26,9 @@ void makePaddleSound(char enable) { /* Handles sound produced when the ball stri
         CCR0 = 0;
         CCR1 = 0;
     }
+}
+
+void buzzer_set_period(short cycles){
+  CCR0 = cycles;
+  CCR1 = cycles >> 1; //one half cycle
 }

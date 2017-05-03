@@ -18,8 +18,8 @@ jt:		.text
 		.word option14 	;jt[14]
 		.word option15 	;jt[15]
 
-		.global starWarsSong
-starWarsSong:	mov &counter, r12 ;r12 = counter
+		.global gameOverSong
+gameOverSong:	mov &counter, r12 ;r12 = counter
 		add r12, r12	  ;r12 = counter*2
 		mov jt(r12), r0	  ;jmp jt[counter]
 
