@@ -8,7 +8,6 @@
 #include "buzzer.h"
 #include "gameLayers.h"
 #include "movement.h"
-#include "gameOverSong.s"
 
 #define GREEN_LED BIT6
 
