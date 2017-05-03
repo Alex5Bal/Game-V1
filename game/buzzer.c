@@ -39,17 +39,17 @@ void gameOverSong(){
   switch(counter){
   	  case 0:
   		  buzzer_set_period(300);
-  		  buzzer_set_period(200);
+  		  buzzer_set_period(900);
   		  counter++;
   		  break;
   	  case 1:
   		  buzzer_set_period(400);
-  		  buzzer_set_period(300);
+  		  buzzer_set_period(800);
   		  counter++;
   		  break;
   	  case 2:
   		  buzzer_set_period(500);
-  		  buzzer_set_period(400);
+  		  buzzer_set_period(700);
   		  counter++;
   		  break;
   	  case 3:
@@ -59,21 +59,21 @@ void gameOverSong(){
   		  break;
   	  case 4:
   		  buzzer_set_period(700);
-  		  buzzer_set_period(600);
+  		  buzzer_set_period(400);
   		  counter++;
   		  break;
   	  case 5:
   		  buzzer_set_period(800);
-  		  buzzer_set_period(700);
-  		  counter++;
-  		  break;
-  	  case 6:
-  		  buzzer_set_period(400);
   		  buzzer_set_period(300);
   		  counter++;
   		  break;
+  	  case 6:
+  		  buzzer_set_period(900);
+  		  buzzer_set_period(200);
+  		  counter++;
+  		  break;
   	  case 7:
-  		  buzzer_set_period(500);
+  		  buzzer_set_period(300);
   		  buzzer_set_period(400);
   		  counter++;
   		  break;
