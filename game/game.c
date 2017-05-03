@@ -8,6 +8,7 @@
 #include "buzzer.h"
 #include "gameLayers.h"
 #include "movement.h"
+#include "gameOverSong.s"
 
 #define GREEN_LED BIT6
 
@@ -62,7 +63,6 @@ void wdt_c_handler() /* Handles game states, game controls, and game sounds */
 
 		case 1:	//prints "GAME OVER"
 			drawString5x7(40, 80, "GAME OVER", COLOR_WHITE, COLOR_BLACK);
-			gameOverSong();
 			break;
 
 		case 2:	//prints "YOU WIN"
