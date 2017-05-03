@@ -52,10 +52,10 @@ void gameOverSong(){
   	  case 4:
   		  buzzer_set_period(800); counter++;
   		  break; //F note*/
-  	  case 3:
+  	  case 2:
   		  buzzer_set_period(700);
 
-  		  	  if(counter == 3) {
+  		  	  if(counter == 2) {
   		  		  counter = 0;
   		  	  }
   		  	  else {
