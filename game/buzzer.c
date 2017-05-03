@@ -88,9 +88,7 @@ void gameOverSong(){
   		  counter++;
   		  break;
   	  case 10:
-  		  buzzer_set_period(800);
-  		  buzzer_set_period(700);
-  		  counter++;
+  		  buzzer_set_period(0);
   		  break;
 
   }
